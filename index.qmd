@@ -17,10 +17,10 @@ Advanced spatial analysis and data science for urban planning and public policy.
 ## About Me
 [Students will customize this section]
 Shubhanga Satyal
-ssatyal@upenn.edu
-ssatyal-ux
+
+
 I want a transferrable skill. 
 
 ## Contact
-- Email: [your.email@upenn.edu]
-- GitHub: [@your-username]
+- Email: ssatyal@upenn.edu
+- GitHub: ssatyal-ux
