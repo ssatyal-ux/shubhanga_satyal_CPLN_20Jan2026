@@ -16,7 +16,8 @@ Advanced spatial analysis and data science for urban planning and public policy.
 
 ## About Me
 Shubhanga Satyal
-I want a transferrable skill. 
+
+I am taking public policy analysis to understand how planning decisions are shaped by laws, budgets, political constraints, and institutional incentives, not just technical design. The course strengthens my ability to evaluate policy impacts, compare alternatives using data and economic reasoning, and make evidence-based recommendations that translate planning ideas into implementable outcomes.
 
 ## Contact
 - Email: ssatyal@upenn.edu
