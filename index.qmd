@@ -12,7 +12,9 @@ Advanced spatial analysis and data science for urban planning and public policy.
 ## Portfolio Structure
 - **Weekly Notes:** My learning reflections and key concepts
 - **Labs:** Completed assignments and analyses
-Lab 0
+- Lab 0 
+[https://ssatyal-ux.github.io/shubhanga_satyal_CPLN_20Jan2026/labs/lab0/lab0_template.html](lab0_template.qmd)
+
 - **Final Project:** Capstone modeling challenge
 
 ## About Me
