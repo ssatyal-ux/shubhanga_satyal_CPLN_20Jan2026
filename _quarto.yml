@@ -3,11 +3,15 @@ project:
   output-dir: docs
 
 website:
-  title: "Shubhanga Satyal - MUSA 5080 Portfolio"
+  title: "Shubhanga Satyal-MUSA 5080 Portfolio"
   navbar:
     left:
       - href: index.qmd
         text: Home
+      - text: labs
+        menu: 
+          - href: labs/lab0/lab0_template.qmd
+            text: "lab 0: dplyr Basic"
 
 format:
   html:
