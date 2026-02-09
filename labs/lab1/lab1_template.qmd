@@ -276,8 +276,7 @@ selected_counties_data <- get_acs(
   output = "wide"
 )
 
-tibble(selected_counties_data)%>%
-  kable()
+tibble(selected_counties_data)
 
 # Calculate percentage of each group using mutate()
 
