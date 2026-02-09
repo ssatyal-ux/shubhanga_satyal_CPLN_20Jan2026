@@ -11,7 +11,10 @@ website:
       - text: labs
         menu: 
           - href: labs/lab0/lab0_template.qmd
-            text: "lab 0: dplyr Basic"
+            text: "Lab 0: dplyr Basic"
+          - href: labs/lab1/lab1_template.qmd
+            text: "Lab 1: Census Data Quality for Policy Decisions"
+      
 
 format:
   html:

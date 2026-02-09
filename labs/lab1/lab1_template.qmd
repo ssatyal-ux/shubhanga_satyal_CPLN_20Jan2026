@@ -18,7 +18,7 @@ execute:
 
 ## Scenario
 
-You are a data analyst for the **[Your State] Department of Human Services**. The department is considering implementing an algorithmic system to identify communities that should receive priority for social service funding and outreach programs. Your supervisor has asked you to evaluate the quality and reliability of available census data to inform this decision.
+You are a data analyst for the **California Department of Human Services**. The department is considering implementing an algorithmic system to identify communities that should receive priority for social service funding and outreach programs. Your supervisor has asked you to evaluate the quality and reliability of available census data to inform this decision.
 
 Drawing on our Week 2 discussion of algorithmic bias, you need to assess not just what the data shows, but how reliable it is and what communities might be affected by data quality issues.
 
@@ -52,13 +52,18 @@ If there is a special character like a colon, you need use double quote mark so 
 
 ```{r setup}
 # Load required packages (hint: you need tidycensus, tidyverse, and knitr)
+library(tidycensus)
+library(tidyverse)
+library(knitr)
 
 # Set your Census API key
+census_api_key(Sys.getenv("82d6bed7434dbceef02889e5a0d354feff424c8b."))
 
 # Choose your state for analysis - assign it to a variable called my_state
+my_state <- "CA"
 ```
 
-**State Selection:** I have chosen **[Your State Name]** for this analysis because: [Brief explanation of why you chose this state]
+**State Selection:** I have chosen **California** for this analysis because: While I am not from America, but California seems great
 
 # Part 2: County-Level Resource Assessment
 
@@ -77,11 +82,33 @@ If there is a special character like a colon, you need use double quote mark so 
 
 ```{r county-data}
 # Write your get_acs() code here
+ca_county_data <- get_acs(
+  geography = "county",
+  state = my_state,
+  variables = c(
+    median_hh_income = "B19013_001",
+    total_pop = "B01003_001"
+  ),
+  year= 2022,
+  survey = "acs5",
+  output = "wide"
+)
+
+head(ca_county_data)
 
 # Clean the county names to remove state name and "County" 
 # Hint: use mutate() with str_remove()
 
+clean_data <- ca_county_data %>%
+  mutate(
+    NAME = NAME %>%
+      str_remove(", California") %>%
+      str_remove(" County")
+  )
+
 # Display the first few rows
+head(clean_data)
+glimpse(clean_data)
 ```
 
 ## 2.2 Data Quality Assessment
@@ -100,9 +127,32 @@ If there is a special character like a colon, you need use double quote mark so 
 
 ```{r income-reliability}
 # Calculate MOE percentage and reliability categories using mutate()
+ca_county_reliability <- clean_data %>%
+  mutate(
+    moe_pct = (median_hh_incomeM/median_hh_incomeE)*100,
+    category = case_when(
+      moe_pct < 5 ~ "High Confidence",
+      moe_pct >= 5 & moe_pct <= 10 ~ "Moderate Confidence",
+      moe_pct > 10 ~ "Low Confidence"
+      ),
+    flag = case_when(category == "Low Confidence" ~ "!!!",
+                   TRUE ~ "    "  )
+)
+  
+
+head(ca_county_reliability)
 
 # Create a summary showing count of counties in each reliability category
 # Hint: use count() and mutate() to add percentages
+
+count_reliability <- ca_county_reliability %>%
+  count(category) %>%
+  mutate(
+    percent = n/sum(n)*100
+  )
+
+head(count_reliability)
+
 ```
 
 ## 2.3 High Uncertainty Counties
@@ -120,7 +170,25 @@ If there is a special character like a colon, you need use double quote mark so 
 ```{r high-uncertainty}
 # Create table of top 5 counties by MOE percentage
 
+top_variable <- ca_county_reliability %>%
+  arrange(desc(moe_pct))%>%
+  slice(1:5) 
+  
+head(top_variable)
+
 # Format as table with kable() - include appropriate column names and caption
+top_variable %>%
+  select(
+                   County = NAME,
+                  `Median HH Income` = median_hh_incomeE,
+                  `MOE Median HH Income` = median_hh_incomeM,
+                  `Total Population` = total_popE,
+                  `MOE Total Pop` = total_popM,
+                  `Margin of Error for HH Income (%)` = moe_pct,
+                  `Reliability Category` = category,
+                  DANGER = flag
+                  ) %>%
+kable( caption = "Top 5 counties in California by HH Income MOE")
 ```
 
 **Data Quality Commentary:**
@@ -138,12 +206,23 @@ If there is a special character like a colon, you need use double quote mark so 
 ```{r select-counties}
 # Use filter() to select 2-3 counties from your county_reliability data
 # Store the selected counties in a variable called selected_counties
-
 # Display the selected counties with their key characteristics
 # Show: county name, median income, MOE percentage, reliability category
+
+selected_counties <- ca_county_reliability %>%
+  filter(category %in% c("Low Confidence","Moderate Confidence", "High Confidence")) %>%
+  group_by(category) %>%
+  slice_sample(n=1) %>%
+  ungroup() %>%
+  select( County = NAME,
+          `Median HH Income` = median_hh_incomeE,
+          `Margin of Error for HH Income (%)` = moe_pct,
+          `Reliability Category` = category)
+tibble(selected_counties)
+
 ```
 
-**Comment on the output:** [write something :)]
+**Comment on the output:** The % cateogory of marginal error directly reflects the reliability of the data. Where, lower the % of marginal error, higher reliability of data. 
 
 ## 3.2 Tract-Level Demographics
 
