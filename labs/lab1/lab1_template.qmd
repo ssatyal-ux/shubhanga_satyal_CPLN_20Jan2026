@@ -104,7 +104,12 @@ clean_data <- ca_county_data %>%
     NAME = NAME %>%
       str_remove(", California") %>%
       str_remove(" County")
-  )
+  )%>%
+  select(`County` = "NAME",
+         `Median Household Income` = "median_hh_incomeE",
+         `Median HH Income Margin of Error` = "median_hh_incomeM",
+        `Total Population` = "total_popE",
+        )
 
 # Display the first few rows
 head(clean_data)
@@ -149,10 +154,12 @@ count_reliability <- ca_county_reliability %>%
   count(category) %>%
   mutate(
     percent = n/sum(n)*100
-  )
-
-head(count_reliability)
-
+  )%>%
+  select(`Category of Reliability` ="category",
+         `Count`= "n", 
+         `Percentage`= "percent")
+  tibble(count_reliability)%>%
+    kable()
 ```
 
 ## 2.3 High Uncertainty Counties
@@ -220,7 +227,8 @@ selected_counties <- ca_county_reliability %>%
           `Margin of Error for HH Income (%)` = moe_pct,
           `Reliability Category` = category,
           GEOID)
-tibble(selected_counties)
+tibble(selected_counties)%>%
+  kable()
 
 ```
 
@@ -283,7 +291,8 @@ percentage_eachgroup <- selected_counties_data %>%
          `Hispanic or Latino %`="pct_Hisp", 
          `Percentage of White, Black and Hispanic Populations`,
         )
-tibble(percentage_eachgroup)
+tibble(percentage_eachgroup)%>%
+  kable()
 
 
 
@@ -301,10 +310,12 @@ hisp_high <- percentage_eachgroup %>%
   arrange(desc(`Hispanic or Latino %`))%>%
   slice_head(n=1)%>%
   select(County,`Hispanic or Latino %`)
-tibble(hisp_high)
+tibble(hisp_high)%>%
+  kable()
 
 # Calculate average demographics by county using group_by() and summarize()
 # Show: number of tracts, average percentage for each racial/ethnic group
+
 
 # Create a nicely formatted table of your results using kable()
 ```
