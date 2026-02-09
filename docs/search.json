@@ -110,5 +110,40 @@
     "title": "Lab 1: Census Data Quality for Policy Decisions",
     "section": "Submission Checklist",
     "text": "Submission Checklist\nBefore submitting your portfolio link on Canvas:\n\nAll code chunks run without errors\nAll “[Fill this in]” prompts have been completed\nTables are properly formatted and readable\nExecutive summary addresses all four required components\nPortfolio navigation includes this assignment\nCensus API key is properly set\nDocument renders correctly to HTML\n\nRemember: Submit your portfolio URL on Canvas, not the file itself. Your assignment should be accessible at your-portfolio-url/labs/lab_1/your_file_name.html"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "MUSA 5080 Portfolio",
+    "section": "",
+    "text": "This portfolio documents my learning journey in Public Policy Analytics (MUSA 5080).\n\n\nAdvanced spatial analysis and data science for urban planning and public policy.\n\n\n\n\nWeekly Notes: My learning reflections and key concepts\nLabs: Completed assignments and analyses\nFinal Project: Capstone modeling challenge\n\n\n\n\nShubhanga Satyal\nI am taking public policy analysis to understand how planning decisions are shaped by laws, budgets, political constraints, and institutional incentives, not just technical design. The course strengthens my ability to evaluate policy impacts, compare alternatives using data and economic reasoning, and make evidence-based recommendations that translate planning ideas into implementable outcomes.\n\n\n\n\nEmail: ssatyal@upenn.edu\nGitHub: ssatyal-ux"
+  },
+  {
+    "objectID": "index.html#about-this-course",
+    "href": "index.html#about-this-course",
+    "title": "MUSA 5080 Portfolio",
+    "section": "",
+    "text": "Advanced spatial analysis and data science for urban planning and public policy."
+  },
+  {
+    "objectID": "index.html#portfolio-structure",
+    "href": "index.html#portfolio-structure",
+    "title": "MUSA 5080 Portfolio",
+    "section": "",
+    "text": "Weekly Notes: My learning reflections and key concepts\nLabs: Completed assignments and analyses\nFinal Project: Capstone modeling challenge"
+  },
+  {
+    "objectID": "index.html#about-me",
+    "href": "index.html#about-me",
+    "title": "MUSA 5080 Portfolio",
+    "section": "",
+    "text": "Shubhanga Satyal\nI am taking public policy analysis to understand how planning decisions are shaped by laws, budgets, political constraints, and institutional incentives, not just technical design. The course strengthens my ability to evaluate policy impacts, compare alternatives using data and economic reasoning, and make evidence-based recommendations that translate planning ideas into implementable outcomes."
+  },
+  {
+    "objectID": "index.html#contact",
+    "href": "index.html#contact",
+    "title": "MUSA 5080 Portfolio",
+    "section": "",
+    "text": "Email: ssatyal@upenn.edu\nGitHub: ssatyal-ux"
   }
 ]
