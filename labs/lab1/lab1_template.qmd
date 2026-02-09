@@ -112,8 +112,9 @@ clean_data <- ca_county_data %>%
         )
 
 # Display the first few rows
-head(clean_data)
-glimpse(clean_data)
+head(clean_data)%>%
+  kable()
+
 ```
 
 ## 2.2 Data Quality Assessment
@@ -145,7 +146,8 @@ ca_county_reliability <- clean_data %>%
 )
   
 
-head(ca_county_reliability)
+tibble(ca_county_reliability)%>%
+  kable()
 
 # Create a summary showing count of counties in each reliability category
 # Hint: use count() and mutate() to add percentages
@@ -270,7 +272,8 @@ selected_counties_data <- get_acs(
   output = "wide"
 )
 
-tibble(selected_counties_data)
+tibble(selected_counties_data)%>%
+  kable()
 
 # Calculate percentage of each group using mutate()
 
