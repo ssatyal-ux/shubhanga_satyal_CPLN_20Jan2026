@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Shubhanga Satyal">
-<meta name="dcterms.date" content="2026-02-09">
+<meta name="dcterms.date" content="2026-02-10">
 
 <title>Lab 1: Census Data Quality for Policy Decisions – Shubhanga Satyal-MUSA 5080 Portfolio</title>
 <style>
@@ -225,7 +225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 9, 2026</p>
+      <p class="date">February 10, 2026</p>
     </div>
   </div>
   
@@ -995,7 +995,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Your Task:</strong> Write an executive summary that integrates findings from all four analyses.</p>
 <p><strong>Executive Summary Requirements:</strong> 1. <strong>Overall Pattern Identification</strong>: What are the systematic patterns across all your analyses? 2. <strong>Equity Assessment</strong>: Which communities face the greatest risk of algorithmic bias based on your findings? 3. <strong>Root Cause Analysis</strong>: What underlying factors drive both data quality issues and bias risk? 4. <strong>Strategic Recommendations</strong>: What should the Department implement to address these systematic issues?</p>
 <p><strong>Executive Summary:</strong></p>
-<p>The overall analysis focused on the reliability of ACS data for median household income at the county level and racial and ethnic composition at the census-tract level shows a clear understanding of how data reliability varies across measures. Data reliability differs by both variable and geographic or political division. County-level income estimates are mostly reliable, with almost 70 percent of counties providing data where the margin of error falls below 15 percent. In contrast, census-tract-level racial composition data are largely unreliable. For the randomly selected counties, regardless of income data reliability, racial data reliability remained consistently low. Out of 390 census tracts analyzed, all exhibited unreliable racial or ethnic estimates.</p>
+<p>The overall analysis focused on the reliability of ACS data for median household income at the county level and racial and ethnic composition at the census-tract level shows a clear understanding of how data reliability varies across measures. Data reliability differs by both variable and geographic or political division. County-level income estimates are mostly reliable, with almost 70 percent of counties providing data where the margin of error falls below 5 percent. In contrast, census-tract-level racial composition data are largely unreliable. For the randomly selected counties, regardless of income data reliability, racial data reliability remained consistently low. Out of 390 census tracts analyzed, all exhibited unreliable racial or ethnic estimates failing the 15% threshold.</p>
 <p>Data reliability is especially weak for race and ethnicity variables, primarily because margins of error are high across tracts. This suggests a need to reconsider current data collection approaches. Census tracts in the analysis have relatively small populations, averaging around 4,000 residents. A general inference from the results is that smaller population sizes are associated with higher margins of error. As a result, existing ACS sampling and data collection methods may require revision to produce more reliable tract-level estimates.</p>
 <p>The root cause of these issues appears to lie in the sampling design and overall data collection methodology. Capturing a larger effective sample would be necessary to improve reliability. In the long term, reconsidering census tract sizing or adopting alternative aggregation strategies may be necessary to support more stable and reliable data collection in the future.</p>
 <p>The Department of Human Services should adopt an uncertainty-aware approach to decision-making by incorporating margins of error directly into analytical and algorithmic processes rather than relying on point estimates alone. Census tract level racial and ethnic composition data should not be used in isolation under current reliability conditions and should instead be aggregated to higher geographies or supplemented with additional data. A tiered framework based on data reliability should guide when automated decisions are appropriate versus when further review is required. Finally, reliability flags and margin of error measures should be clearly documented and carried through all outputs so uncertainty is visible at the point of decision</p>
@@ -1012,39 +1012,499 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># - Moderate Confidence: "Use with caution - monitor outcomes"  </span></span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># - Low Confidence: "Requires manual review or additional data"</span></span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Format as a professional table with kable()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Format as a professional table with kable()</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>summary_overall <span class="ot">&lt;-</span> ca_county_reliability <span class="sc">%&gt;%</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    County,</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Median Household Income</span><span class="st">`</span>,</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Margin of Error for HH Income (%)</span><span class="st">`</span> <span class="ot">=</span> moe_pct, </span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Reliability Category</span><span class="st">`</span> <span class="ot">=</span> category</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">%&gt;%</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Algorithm Recommendation</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">case_when</span>(</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Reliability Category</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"High Confidence"</span> <span class="sc">~</span> <span class="st">"Safe for Algorithmic Decisions"</span>,</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Reliability Category</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Moderate Confidence"</span> <span class="sc">~</span> <span class="st">"Use with caution - monitor outcomes"</span>,</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Reliability Category</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Low Confidence"</span> <span class="sc">~</span> <span class="st">"Requires manual review or additional data"</span></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(summary_overall)<span class="sc">%&gt;%</span></span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"County Income Data Reliability and Guide for Data Use - Algorithmic Recommendations &lt;br&gt; &lt;em&gt;For ethnic and race related analysis manual analysis and further data cleaning required"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>County Income Data Reliability and Guide for Data Use - Algorithmic Recommendations <br> <em>For ethnic and race related analysis manual analysis and further data cleaning required</em></caption>
+<colgroup>
+<col style="width: 11%">
+<col style="width: 17%">
+<col style="width: 24%">
+<col style="width: 15%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">County</th>
+<th style="text-align: right;">Median Household Income</th>
+<th style="text-align: right;">Margin of Error for HH Income (%)</th>
+<th style="text-align: left;">Reliability Category</th>
+<th style="text-align: left;">Algorithm Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Alameda</td>
+<td style="text-align: right;">122488</td>
+<td style="text-align: right;">1.0049964</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Alpine</td>
+<td style="text-align: right;">101125</td>
+<td style="text-align: right;">17.2479604</td>
+<td style="text-align: left;">Low Confidence</td>
+<td style="text-align: left;">Requires manual review or additional data</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Amador</td>
+<td style="text-align: right;">74853</td>
+<td style="text-align: right;">8.0798365</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">Use with caution - monitor outcomes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Butte</td>
+<td style="text-align: right;">66085</td>
+<td style="text-align: right;">3.4213513</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Calaveras</td>
+<td style="text-align: right;">77526</td>
+<td style="text-align: right;">4.9983231</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Colusa</td>
+<td style="text-align: right;">69619</td>
+<td style="text-align: right;">8.2520576</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">Use with caution - monitor outcomes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Contra Costa</td>
+<td style="text-align: right;">120020</td>
+<td style="text-align: right;">1.2464589</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Del Norte</td>
+<td style="text-align: right;">61149</td>
+<td style="text-align: right;">7.1562904</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">Use with caution - monitor outcomes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">El Dorado</td>
+<td style="text-align: right;">99246</td>
+<td style="text-align: right;">3.3552990</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fresno</td>
+<td style="text-align: right;">67756</td>
+<td style="text-align: right;">1.4271799</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Glenn</td>
+<td style="text-align: right;">64033</td>
+<td style="text-align: right;">6.1889963</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">Use with caution - monitor outcomes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Humboldt</td>
+<td style="text-align: right;">57881</td>
+<td style="text-align: right;">3.6816917</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Imperial</td>
+<td style="text-align: right;">53847</td>
+<td style="text-align: right;">4.1116497</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Inyo</td>
+<td style="text-align: right;">63417</td>
+<td style="text-align: right;">8.5986407</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">Use with caution - monitor outcomes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Kern</td>
+<td style="text-align: right;">63883</td>
+<td style="text-align: right;">2.0741042</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kings</td>
+<td style="text-align: right;">68540</td>
+<td style="text-align: right;">3.2871316</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lake</td>
+<td style="text-align: right;">56259</td>
+<td style="text-align: right;">4.3353064</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lassen</td>
+<td style="text-align: right;">59515</td>
+<td style="text-align: right;">5.9665631</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">Use with caution - monitor outcomes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Los Angeles</td>
+<td style="text-align: right;">83411</td>
+<td style="text-align: right;">0.5263095</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Madera</td>
+<td style="text-align: right;">73543</td>
+<td style="text-align: right;">3.8671254</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Marin</td>
+<td style="text-align: right;">142019</td>
+<td style="text-align: right;">2.8855294</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mariposa</td>
+<td style="text-align: right;">60021</td>
+<td style="text-align: right;">8.8185802</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">Use with caution - monitor outcomes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mendocino</td>
+<td style="text-align: right;">61335</td>
+<td style="text-align: right;">3.5835983</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Merced</td>
+<td style="text-align: right;">64772</td>
+<td style="text-align: right;">3.3069845</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Modoc</td>
+<td style="text-align: right;">54962</td>
+<td style="text-align: right;">9.8049562</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">Use with caution - monitor outcomes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mono</td>
+<td style="text-align: right;">82038</td>
+<td style="text-align: right;">18.7571613</td>
+<td style="text-align: left;">Low Confidence</td>
+<td style="text-align: left;">Requires manual review or additional data</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Monterey</td>
+<td style="text-align: right;">91043</td>
+<td style="text-align: right;">2.0869260</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Napa</td>
+<td style="text-align: right;">105809</td>
+<td style="text-align: right;">2.8173407</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nevada</td>
+<td style="text-align: right;">79395</td>
+<td style="text-align: right;">4.8151647</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Orange</td>
+<td style="text-align: right;">109361</td>
+<td style="text-align: right;">0.8065032</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Placer</td>
+<td style="text-align: right;">109375</td>
+<td style="text-align: right;">1.6969143</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Plumas</td>
+<td style="text-align: right;">67885</td>
+<td style="text-align: right;">11.4487737</td>
+<td style="text-align: left;">Low Confidence</td>
+<td style="text-align: left;">Requires manual review or additional data</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Riverside</td>
+<td style="text-align: right;">84505</td>
+<td style="text-align: right;">1.2555470</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sacramento</td>
+<td style="text-align: right;">84010</td>
+<td style="text-align: right;">0.9713129</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">San Benito</td>
+<td style="text-align: right;">104451</td>
+<td style="text-align: right;">5.2282889</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">Use with caution - monitor outcomes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">San Bernardino</td>
+<td style="text-align: right;">77423</td>
+<td style="text-align: right;">1.0410343</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">San Diego</td>
+<td style="text-align: right;">96974</td>
+<td style="text-align: right;">1.0239858</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">San Francisco</td>
+<td style="text-align: right;">136689</td>
+<td style="text-align: right;">1.4295225</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">San Joaquin</td>
+<td style="text-align: right;">82837</td>
+<td style="text-align: right;">1.7480112</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">San Luis Obispo</td>
+<td style="text-align: right;">90158</td>
+<td style="text-align: right;">2.5632778</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">San Mateo</td>
+<td style="text-align: right;">149907</td>
+<td style="text-align: right;">1.7484174</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Santa Barbara</td>
+<td style="text-align: right;">92332</td>
+<td style="text-align: right;">2.0458779</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Santa Clara</td>
+<td style="text-align: right;">153792</td>
+<td style="text-align: right;">1.0046036</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Santa Cruz</td>
+<td style="text-align: right;">104409</td>
+<td style="text-align: right;">3.0390100</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Shasta</td>
+<td style="text-align: right;">68347</td>
+<td style="text-align: right;">3.6285426</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sierra</td>
+<td style="text-align: right;">61108</td>
+<td style="text-align: right;">15.1158604</td>
+<td style="text-align: left;">Low Confidence</td>
+<td style="text-align: left;">Requires manual review or additional data</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Siskiyou</td>
+<td style="text-align: right;">53898</td>
+<td style="text-align: right;">4.8981409</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Solano</td>
+<td style="text-align: right;">97037</td>
+<td style="text-align: right;">1.7766419</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sonoma</td>
+<td style="text-align: right;">99266</td>
+<td style="text-align: right;">2.0026998</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Stanislaus</td>
+<td style="text-align: right;">74872</td>
+<td style="text-align: right;">1.8311251</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sutter</td>
+<td style="text-align: right;">72654</td>
+<td style="text-align: right;">4.7141245</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tehama</td>
+<td style="text-align: right;">59029</td>
+<td style="text-align: right;">6.9508208</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">Use with caution - monitor outcomes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trinity</td>
+<td style="text-align: right;">47317</td>
+<td style="text-align: right;">12.4479574</td>
+<td style="text-align: left;">Low Confidence</td>
+<td style="text-align: left;">Requires manual review or additional data</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tulare</td>
+<td style="text-align: right;">64474</td>
+<td style="text-align: right;">2.3094581</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tuolumne</td>
+<td style="text-align: right;">70432</td>
+<td style="text-align: right;">6.6603249</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">Use with caution - monitor outcomes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ventura</td>
+<td style="text-align: right;">102141</td>
+<td style="text-align: right;">1.4959713</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Yolo</td>
+<td style="text-align: right;">85097</td>
+<td style="text-align: right;">2.7415773</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Yuba</td>
+<td style="text-align: right;">66693</td>
+<td style="text-align: right;">4.1923440</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">Safe for Algorithmic Decisions</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <p><strong>Key Recommendations:</strong></p>
 <p><strong>Your Task:</strong> Use your analysis results to provide specific guidance to the department.</p>
 <ol type="1">
-<li><p><strong>Counties suitable for immediate algorithmic implementation:</strong> [List counties with high confidence data and explain why they’re appropriate]</p></li>
-<li><p><strong>Counties requiring additional oversight:</strong> [List counties with moderate confidence data and describe what kind of monitoring would be needed]</p></li>
-<li><p><strong>Counties needing alternative approaches:</strong> [List counties with low confidence data and suggest specific alternatives - manual review, additional surveys, etc.]</p></li>
+<li><strong>Counties suitable for immediate algorithmic implementation:</strong> Alameda; Butte; Calaveras; Contra Costa; El Dorado; Fresno; Humboldt; Imperial; Kern; Kings; Lake; Los Angeles; Madera; Marin; Mendocino; Merced; Monterey; Napa; Nevada; Orange; Placer; Riverside; Sacramento; San Bernardino; San Diego; San Francisco; San Joaquin; San Luis Obispo; San Mateo; Santa Barbara; Santa Clara; Santa Cruz; Shasta; Siskiyou; Solano; Sonoma; Stanislaus; Sutter; Tulare; Ventura; Yolo; Yuba.</li>
+</ol>
+<ul>
+<li>These are high reliability for income with margin of error below 5%.</li>
+</ul>
+<ol start="2" type="1">
+<li><strong>Counties requiring additional oversight:</strong> Amador; Colusa; Del Norte; Glenn; Inyo; Lassen; Mariposa; Modoc; San Benito; Tehama; Tuolumne.</li>
+</ol>
+<ul>
+<li>Frequent audits for analysis required, intervention in terms of surveying residents for the outcomes from decisions made by the planning department.</li>
+</ul>
+<ol start="3" type="1">
+<li><strong>Counties needing alternative approaches:</strong> Alpine; Mono; Plumas; Sierra; Trinity. -Manual review of data- rezoning considerations (redrawing boundaries), frequent surveying and more direct community level engagement required.</li>
 </ol>
 </section>
 <section id="questions-for-further-investigation" class="level2">
 <h2 class="anchored" data-anchor-id="questions-for-further-investigation">Questions for Further Investigation</h2>
-<p>[List 2-3 questions that your analysis raised that you’d like to explore further in future assignments. Consider questions about spatial patterns, time trends, or other demographic factors.]</p>
+<ol type="1">
+<li>Are high margins of error clustered in specific types of places, such as rural or low-population areas, rather than being randomly distributed across counties and census tracts?</li>
+<li>Is it possible to analyze the spatial patterns and see if rezoning of census tracts is possible for added data reliability.</li>
+</ol>
 </section>
 </section>
 <section id="technical-notes" class="level1">
 <h1>Technical Notes</h1>
-<p><strong>Data Sources:</strong> - U.S. Census Bureau, American Community Survey 2018-2022 5-Year Estimates - Retrieved via tidycensus R package on [date]</p>
-<p><strong>Reproducibility:</strong> - All analysis conducted in R version [your version] - Census API key required for replication - Complete code and documentation available at: [your portfolio URL]</p>
-<p><strong>Methodology Notes:</strong> [Describe any decisions you made about data processing, county selection, or analytical choices that might affect reproducibility]</p>
-<p><strong>Limitations:</strong> [Note any limitations in your analysis - sample size issues, geographic scope, temporal factors, etc.]</p>
+<p><strong>Data Sources:</strong> - U.S. Census Bureau, American Community Survey 2018-2022 5-Year Estimates - Retrieved via tidycensus R package on 07-09 February 2026</p>
+<p><strong>Reproducibility:</strong> - All analysis conducted in R - Census API key required for replication - Complete code and documentation available at: https://ssatyal-ux.github.io/shubhanga_satyal_CPLN_20Jan2026/</p>
+<p><strong>Methodology Notes:</strong> While selecting my counties, I initially attempted to use slice_sample() to randomize the selection. However, to ensure consistency in the data and to avoid issues when referring to the same counties for census tract–level analysis, I used slice() instead.</p>
+<p>I used help from the class exercise and additional support from ChatGPT for explanations on how to write code when I was stuck. I also used the dplyr cheatsheet for reference.</p>
+<p><strong>Limitations:</strong> All census tracts in my selected counties were unrelable for ethnicity and race data. Thus not allowing further investigation.</p>
 <hr>
 <section id="submission-checklist" class="level2">
 <h2 class="anchored" data-anchor-id="submission-checklist">Submission Checklist</h2>
 <p>Before submitting your portfolio link on Canvas:</p>
 <ul class="task-list">
-<li><label><input type="checkbox">All code chunks run without errors</label></li>
-<li><label><input type="checkbox">All “[Fill this in]” prompts have been completed</label></li>
-<li><label><input type="checkbox">Tables are properly formatted and readable</label></li>
-<li><label><input type="checkbox">Executive summary addresses all four required components</label></li>
-<li><label><input type="checkbox">Portfolio navigation includes this assignment</label></li>
-<li><label><input type="checkbox">Census API key is properly set</label></li>
-<li><label><input type="checkbox">Document renders correctly to HTML</label></li>
+<li><label><input type="checkbox" checked="">All code chunks run without errors</label></li>
+<li><label><input type="checkbox" checked="">All “[Fill this in]” prompts have been completed</label></li>
+<li><label><input type="checkbox" checked="">Tables are properly formatted and readable</label></li>
+<li><label><input type="checkbox" checked="">Executive summary addresses all four required components</label></li>
+<li><label><input type="checkbox" checked="">Portfolio navigation includes this assignment</label></li>
+<li><label><input type="checkbox" checked="">Census API key is properly set</label></li>
+<li><label><input type="checkbox" checked="">Document renders correctly to HTML</label></li>
 </ul>
 <p><strong>Remember:</strong> Submit your portfolio URL on Canvas, not the file itself. Your assignment should be accessible at <code>your-portfolio-url/labs/lab_1/your_file_name.html</code></p>
 

@@ -432,7 +432,7 @@ In my selected counties, all 390 census tracts are flagged as unreliable, meanin
 
 **Executive Summary:**
 
-The overall analysis focused on the reliability of ACS data for median household income at the county level and racial and ethnic composition at the census-tract level shows a clear understanding of how data reliability varies across measures. Data reliability differs by both variable and geographic or political division. County-level income estimates are mostly reliable, with almost 70 percent of counties providing data where the margin of error falls below 15 percent. In contrast, census-tract-level racial composition data are largely unreliable. For the randomly selected counties, regardless of income data reliability, racial data reliability remained consistently low. Out of 390 census tracts analyzed, all exhibited unreliable racial or ethnic estimates.
+The overall analysis focused on the reliability of ACS data for median household income at the county level and racial and ethnic composition at the census-tract level shows a clear understanding of how data reliability varies across measures. Data reliability differs by both variable and geographic or political division. County-level income estimates are mostly reliable, with almost 70 percent of counties providing data where the margin of error falls below 5 percent. In contrast, census-tract-level racial composition data are largely unreliable. For the randomly selected counties, regardless of income data reliability, racial data reliability remained consistently low. Out of 390 census tracts analyzed, all exhibited unreliable racial or ethnic estimates failing the 15% threshold.
 
 Data reliability is especially weak for race and ethnicity variables, primarily because margins of error are high across tracts. This suggests a need to reconsider current data collection approaches. Census tracts in the analysis have relatively small populations, averaging around 4,000 residents. A general inference from the results is that smaller population sizes are associated with higher margins of error. As a result, existing ACS sampling and data collection methods may require revision to produce more reliable tract-level estimates.
 
@@ -455,38 +455,69 @@ The Department of Human Services should adopt an uncertainty-aware approach to d
 # - Low Confidence: "Requires manual review or additional data"
 
 # Format as a professional table with kable()
+
+summary_overall <- ca_county_reliability %>%
+  select(
+    County,
+    `Median Household Income`,
+    `Margin of Error for HH Income (%)` = moe_pct, 
+    `Reliability Category` = category
+  )%>%
+  mutate(
+    `Algorithm Recommendation` = case_when(
+    `Reliability Category` == "High Confidence" ~ "Safe for Algorithmic Decisions",
+    `Reliability Category` == "Moderate Confidence" ~ "Use with caution - monitor outcomes",
+    `Reliability Category` == "Low Confidence" ~ "Requires manual review or additional data"
+    )
+  )
+tibble(summary_overall)%>%
+  kable(caption = "County Income Data Reliability and Guide for Data Use - Algorithmic Recommendations <br> <em>For ethnic and race related analysis manual analysis and further data cleaning required")
+
+
 ```
 
 **Key Recommendations:**
 
 **Your Task:** Use your analysis results to provide specific guidance to the department.
 
-1. **Counties suitable for immediate algorithmic implementation:** [List counties with high confidence data and explain why they're appropriate]
+1. **Counties suitable for immediate algorithmic implementation:** 
+Alameda; Butte; Calaveras; Contra Costa; El Dorado; Fresno; Humboldt; Imperial; Kern; Kings; Lake; Los Angeles; Madera; Marin; Mendocino; Merced; Monterey; Napa; Nevada; Orange; Placer; Riverside; Sacramento; San Bernardino; San Diego; San Francisco; San Joaquin; San Luis Obispo; San Mateo; Santa Barbara; Santa Clara; Santa Cruz; Shasta; Siskiyou; Solano; Sonoma; Stanislaus; Sutter; Tulare; Ventura; Yolo; Yuba.
 
-2. **Counties requiring additional oversight:** [List counties with moderate confidence data and describe what kind of monitoring would be needed]
+- These are high reliability for income with margin of error below 5%. 
 
-3. **Counties needing alternative approaches:** [List counties with low confidence data and suggest specific alternatives - manual review, additional surveys, etc.]
+2. **Counties requiring additional oversight:** 
+Amador; Colusa; Del Norte; Glenn; Inyo; Lassen; Mariposa; Modoc; San Benito; Tehama; Tuolumne.
+
+- Frequent audits for analysis required, intervention in terms of surveying residents for the outcomes from decisions made by the planning department. 
+
+
+3. **Counties needing alternative approaches:**
+Alpine; Mono; Plumas; Sierra; Trinity.
+-Manual review of data- rezoning considerations (redrawing boundaries), frequent surveying and more direct community level engagement required. 
 
 ## Questions for Further Investigation
 
-[List 2-3 questions that your analysis raised that you'd like to explore further in future assignments. Consider questions about spatial patterns, time trends, or other demographic factors.]
+1. Are high margins of error clustered in specific types of places, such as rural or low-population areas, rather than being randomly distributed across counties and census tracts?
+2. Is it possible to analyze the spatial patterns and see if rezoning of census tracts is possible for added data reliability. 
 
 # Technical Notes
 
 **Data Sources:** 
 - U.S. Census Bureau, American Community Survey 2018-2022 5-Year Estimates
-- Retrieved via tidycensus R package on [date]
+- Retrieved via tidycensus R package on 07-09 February 2026
 
 **Reproducibility:** 
-- All analysis conducted in R version [your version]
+- All analysis conducted in R 
 - Census API key required for replication
-- Complete code and documentation available at: [your portfolio URL]
+- Complete code and documentation available at: https://ssatyal-ux.github.io/shubhanga_satyal_CPLN_20Jan2026/
 
 **Methodology Notes:**
-[Describe any decisions you made about data processing, county selection, or analytical choices that might affect reproducibility]
+While selecting my counties, I initially attempted to use slice_sample() to randomize the selection. However, to ensure consistency in the data and to avoid issues when referring to the same counties for census tract–level analysis, I used slice() instead.
+
+I used help from the class exercise and additional support from ChatGPT for explanations on how to write code when I was stuck. I also used the dplyr cheatsheet for reference.
 
 **Limitations:**
-[Note any limitations in your analysis - sample size issues, geographic scope, temporal factors, etc.]
+All census tracts in my selected counties were unrelable for ethnicity and race data. Thus not allowing further investigation. 
 
 ---
 
@@ -494,12 +525,12 @@ The Department of Human Services should adopt an uncertainty-aware approach to d
 
 Before submitting your portfolio link on Canvas:
 
-- [ ] All code chunks run without errors
-- [ ] All "[Fill this in]" prompts have been completed
-- [ ] Tables are properly formatted and readable
-- [ ] Executive summary addresses all four required components
-- [ ] Portfolio navigation includes this assignment
-- [ ] Census API key is properly set 
-- [ ] Document renders correctly to HTML
+- [x] All code chunks run without errors
+- [x] All "[Fill this in]" prompts have been completed
+- [x] Tables are properly formatted and readable
+- [x] Executive summary addresses all four required components
+- [x] Portfolio navigation includes this assignment
+- [x] Census API key is properly set 
+- [x] Document renders correctly to HTML
 
 **Remember:** Submit your portfolio URL on Canvas, not the file itself. Your assignment should be accessible at `your-portfolio-url/labs/lab_1/your_file_name.html`
