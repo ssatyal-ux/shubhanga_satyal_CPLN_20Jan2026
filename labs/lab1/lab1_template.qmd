@@ -359,7 +359,6 @@ tibble(county_summary)%>%
 ```{r demographic-moe}
 # Calculate MOE percentages for white, Black, and Hispanic variables
 # Hint: use the same formula as before (margin/estimate * 100)
-tibble(selected_counties_data)
 moe_race <- selected_counties_data %>%
   mutate(
     `MOE % White` = (`White AloneM` / `White AloneE`)*100,
@@ -379,7 +378,8 @@ summary <- moe_race %>%
   tracts = n(),
   `tracts with issues` = sum(Flag == "UNRELIABLE")
 ) 
-print(summary)
+print(summary)%>%
+  kable()
 
 
   
@@ -409,7 +409,7 @@ moe_issuesummary <- moe_race %>%
   )
 
   tibble(moe_issuesummary) %>%
-  kable(
+    kable(
     caption = "Average Tract Characteristics by Data Quality Status"
   )
   
