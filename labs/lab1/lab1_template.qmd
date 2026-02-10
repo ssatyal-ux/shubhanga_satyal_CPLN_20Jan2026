@@ -63,7 +63,7 @@ census_api_key(Sys.getenv("82d6bed7434dbceef02889e5a0d354feff424c8b."))
 my_state <- "CA"
 ```
 
-**State Selection:** I have chosen **California** for this analysis because: While I am not from America, but California seems great
+**State Selection:** I have chosen **California** for this analysis because: While I am not from America, California would be a state I would like to visit. 
 
 # Part 2: County-Level Resource Assessment
 
@@ -204,7 +204,7 @@ top_variable %>%
 
 **Data Quality Commentary:**
 
-[Write 2-3 sentences explaining what these results mean for algorithmic decision-making. Consider: Which counties might be poorly served by algorithms that rely on this income data? What factors might contribute to higher uncertainty?]
+[These results show that counties with the highest margins of error for median household income, such as Mono, Alpine, Sierra, Trinity, and Plumas, have less reliable income estimates. Algorithms that rely on this data may therefore poorly serve residents in these counties by producing unstable classifications or inaccurate eligibility decisions. This uncertainty may lead to their exclusion or misrepresentation in planning decisions and program targeting that depend on precise income thresholds.]
 
 # Part 3: Neighborhood-Level Analysis
 
@@ -319,7 +319,24 @@ tibble(hisp_high)%>%
 
 # Calculate average demographics by county using group_by() and summarize()
 # Show: number of tracts, average percentage for each racial/ethnic group
-
+county_summary <- percentage_eachgroup %>%
+  group_by(County)%>%
+  summarise(`Number of Tracts`=n(),
+            `Average White Percentage` = mean(`White %`, na.rm = TRUE),
+            `Average Black Percentage` = mean(`Black %`, na.rm = TRUE),
+            `Average Hispanic Percentage` = mean(`Hispanic or Latino %`, na.rm = TRUE)
+    
+  )%>%
+  select(
+    County,
+    `Number of Tracts`,
+    `Average White Percentage`,
+    `Average Black Percentage`,
+    `Average Hispanic Percentage`
+    )
+tibble(county_summary)%>% 
+  kable()
+  
 
 # Create a nicely formatted table of your results using kable()
 ```
@@ -338,11 +355,31 @@ tibble(hisp_high)%>%
 ```{r demographic-moe}
 # Calculate MOE percentages for white, Black, and Hispanic variables
 # Hint: use the same formula as before (margin/estimate * 100)
+tibble(selected_counties_data)
+moe_race <- selected_counties_data %>%
+  mutate(
+    `MOE % White` = (`White AloneM` / `White AloneE`)*100,
+    `MOE % Black` = (`Black/African AmericanM` / `Black/African AmericanE`)*100,
+    `MOE % Hispanic` = (`Hispanic/LatinoM` / `Hispanic/LatinoE`)*100,
 
 # Create a flag for tracts with high MOE on any demographic variable
 # Use logical operators (| for OR) in an ifelse() statement
-
+Flag = ifelse(
+     `MOE % White` > 15 | `MOE % Black` > 15 | `MOE % Hispanic` > 15, "UNRELIABLE", "  ")
+    )
+tibble(moe_race)
 # Create summary statistics showing how many tracts have data quality issues
+summary <- moe_race %>% 
+  summarise(
+  tracts = n(),
+  `tracts with issues` = sum(Flag == "UNRELIABLE")
+) 
+print(summary)
+
+
+  
+
+
 ```
 
 ## 4.2 Pattern Analysis
@@ -353,13 +390,33 @@ tibble(hisp_high)%>%
 # Group tracts by whether they have high MOE issues
 # Calculate average characteristics for each group:
 # - population size, demographic percentages
-
 # Use group_by() and summarize() to create this comparison
 # Create a professional table showing the patterns
+
+moe_issuesummary <- moe_race %>%
+  group_by(Flag) %>%
+  summarise(
+    tracts = n(),
+    `Average Population` = mean(`Total PopulationE`, na.rm = TRUE),
+    `Average White Population %` = mean((`White AloneE` / `Total PopulationE`) * 100, na.rm = TRUE),
+    `Average Black Population %` = mean((`Black/African AmericanE` / `Total PopulationE`) * 100, na.rm = TRUE),
+    `Average Hispanic Population %` = mean((`Hispanic/LatinoE` / `Total PopulationE`) * 100, na.rm = TRUE)
+  )
+
+  tibble(moe_issuesummary) %>%
+  kable(
+    caption = "Average Tract Characteristics by Data Quality Status"
+  )
+  
+
+
+
+  
+
 ```
 
-**Pattern Analysis:** [Describe any patterns you observe. Do certain types of communities have less reliable data? What might explain this?]
-
+**Pattern Analysis:** 
+In my selected counties, all 390 census tracts are flagged as unreliable, meaning there is no meaningful contrast between reliable and unreliable areas. These tracts are relatively small, with an average population of about 4,374 residents, which helps explain the uniformly high margins of error. While White, Black, and Hispanic populations are present at non-negligible levels across tracts, the high uncertainty affects all groups similarly, indicating that unreliability is driven primarily by small population sizes and ACS sampling limitations rather than demographic composition. As a result, tract-level estimates in these counties are particularly vulnerable to error, making them risky inputs for algorithmic decision-making that depends on precise demographic thresholds.
 
 # Part 5: Policy Recommendations
 
@@ -375,7 +432,14 @@ tibble(hisp_high)%>%
 
 **Executive Summary:**
 
-[Your integrated 4-paragraph summary here]
+The overall analysis focused on the reliability of ACS data for median household income at the county level and racial and ethnic composition at the census-tract level shows a clear understanding of how data reliability varies across measures. Data reliability differs by both variable and geographic or political division. County-level income estimates are mostly reliable, with almost 70 percent of counties providing data where the margin of error falls below 15 percent. In contrast, census-tract-level racial composition data are largely unreliable. For the randomly selected counties, regardless of income data reliability, racial data reliability remained consistently low. Out of 390 census tracts analyzed, all exhibited unreliable racial or ethnic estimates.
+
+Data reliability is especially weak for race and ethnicity variables, primarily because margins of error are high across tracts. This suggests a need to reconsider current data collection approaches. Census tracts in the analysis have relatively small populations, averaging around 4,000 residents. A general inference from the results is that smaller population sizes are associated with higher margins of error. As a result, existing ACS sampling and data collection methods may require revision to produce more reliable tract-level estimates.
+
+The root cause of these issues appears to lie in the sampling design and overall data collection methodology. Capturing a larger effective sample would be necessary to improve reliability. In the long term, reconsidering census tract sizing or adopting alternative aggregation strategies may be necessary to support more stable and reliable data collection in the future.
+
+The Department of Human Services should adopt an uncertainty-aware approach to decision-making by incorporating margins of error directly into analytical and algorithmic processes rather than relying on point estimates alone. Census tract level racial and ethnic composition data should not be used in isolation under current reliability conditions and should instead be aggregated to higher geographies or supplemented with additional data. A tiered framework based on data reliability should guide when automated decisions are appropriate versus when further review is required. Finally, reliability flags and margin of error measures should be clearly documented and carried through all outputs so uncertainty is visible at the point of decision
+
 
 ## 6.3 Specific Recommendations
 
