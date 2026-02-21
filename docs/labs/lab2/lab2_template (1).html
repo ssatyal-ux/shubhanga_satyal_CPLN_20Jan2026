@@ -4050,13 +4050,15 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |=                                                                     |   1%
   |                                                                            
-  |==                                                                    |   2%
+  |=                                                                     |   2%
   |                                                                            
   |==                                                                    |   3%
   |                                                                            
   |===                                                                   |   4%
   |                                                                            
   |===                                                                   |   5%
+  |                                                                            
+  |====                                                                  |   5%
   |                                                                            
   |====                                                                  |   6%
   |                                                                            
@@ -4066,9 +4068,9 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |======                                                                |   9%
   |                                                                            
-  |=======                                                               |   9%
-  |                                                                            
   |=======                                                               |  10%
+  |                                                                            
+  |=======                                                               |  11%
   |                                                                            
   |========                                                              |  11%
   |                                                                            
@@ -4542,35 +4544,36 @@ $ geometry          &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MUL
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">percentage_vulner =</span> (n <span class="sc">/</span> <span class="fu">sum</span>(n))<span class="sc">*</span><span class="dv">100</span></span>
 <span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">%&gt;%</span></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(category, n, percentage_vulner)<span class="sc">%&gt;%</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 21%">
 <col style="width: 7%">
-<col style="width: 44%">
 <col style="width: 26%">
+<col style="width: 44%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">category</th>
 <th style="text-align: right;">n</th>
-<th style="text-align: left;">geometry</th>
 <th style="text-align: right;">percentage_vulner</th>
+<th style="text-align: left;">geometry</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Not Vulnerable</td>
 <td style="text-align: right;">3172</td>
-<td style="text-align: left;">MULTIPOLYGON (((-8914014 48…</td>
 <td style="text-align: right;">92.075472</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8914014 48…</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Vulnerable</td>
 <td style="text-align: right;">273</td>
-<td style="text-align: left;">MULTIPOLYGON (((-8895128 48…</td>
 <td style="text-align: right;">7.924528</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8895128 48…</td>
 </tr>
 </tbody>
 </table>

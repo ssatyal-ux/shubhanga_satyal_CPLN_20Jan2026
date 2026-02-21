@@ -199,6 +199,7 @@ count(identify_vulnerability, category)%>%
   mutate(
     percentage_vulner = (n / sum(n))*100
   )%>%
+  select(category, n, percentage_vulner)%>%
   kable()
 
 head(identify_vulnerability)%>%
