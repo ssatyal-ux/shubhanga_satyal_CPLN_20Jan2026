@@ -160,16 +160,14 @@ join_tract_boundaries%>%
 ```
 
 **Questions to answer:**. 
-- **What year of ACS data are you using?**. 
-  2022. 
+- **What year of ACS data are you using?**  
+  2022.
 
-- **How many tracts have missing income data?**. 
-  2023. 
+- **How many tracts have missing income data?**  
+  2023.
 
-
-
-- **What is the median income across all PA census tracts?**.
-  70,188. 
+- **What is the median income across all PA census tracts?**  
+  70,188.
 
 ---
 
