@@ -160,6 +160,8 @@ join_tract_boundaries%>%
 ```
 
 **Questions to answer:**. 
+
+
 - **What year of ACS data are you using?**  
   2022.
 
