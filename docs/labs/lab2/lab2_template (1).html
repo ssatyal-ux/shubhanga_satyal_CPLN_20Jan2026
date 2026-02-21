@@ -4068,19 +4068,19 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |========                                                              |  11%
   |                                                                            
-  |=========                                                             |  12%
+  |========                                                              |  12%
   |                                                                            
   |=========                                                             |  13%
   |                                                                            
   |==========                                                            |  14%
   |                                                                            
-  |==========                                                            |  15%
+  |===========                                                           |  15%
   |                                                                            
   |===========                                                           |  16%
   |                                                                            
   |============                                                          |  17%
   |                                                                            
-  |============                                                          |  18%
+  |=============                                                         |  18%
   |                                                                            
   |=============                                                         |  19%
   |                                                                            
@@ -4106,29 +4106,29 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |=====================                                                 |  30%
   |                                                                            
-  |=====================                                                 |  31%
-  |                                                                            
   |======================                                                |  31%
   |                                                                            
-  |=======================                                               |  32%
+  |======================                                                |  32%
   |                                                                            
   |=======================                                               |  33%
   |                                                                            
   |========================                                              |  34%
   |                                                                            
-  |=========================                                             |  35%
+  |========================                                              |  35%
   |                                                                            
   |=========================                                             |  36%
   |                                                                            
   |==========================                                            |  37%
   |                                                                            
-  |===========================                                           |  38%
+  |==========================                                            |  38%
   |                                                                            
-  |============================                                          |  39%
+  |===========================                                           |  39%
   |                                                                            
   |============================                                          |  40%
   |                                                                            
-  |=============================                                         |  41%
+  |============================                                          |  41%
+  |                                                                            
+  |=============================                                         |  42%
   |                                                                            
   |==============================                                        |  42%
   |                                                                            
@@ -4144,25 +4144,25 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |==================================                                    |  48%
   |                                                                            
-  |==================================                                    |  49%
+  |===================================                                   |  49%
   |                                                                            
   |===================================                                   |  50%
   |                                                                            
   |====================================                                  |  51%
   |                                                                            
-  |====================================                                  |  52%
+  |=====================================                                 |  52%
   |                                                                            
   |=====================================                                 |  53%
   |                                                                            
   |======================================                                |  54%
   |                                                                            
-  |======================================                                |  55%
+  |=======================================                               |  55%
   |                                                                            
   |=======================================                               |  56%
   |                                                                            
   |========================================                              |  57%
   |                                                                            
-  |========================================                              |  58%
+  |=========================================                             |  58%
   |                                                                            
   |=========================================                             |  59%
   |                                                                            
@@ -4188,27 +4188,27 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |=================================================                     |  70%
   |                                                                            
-  |=================================================                     |  71%
-  |                                                                            
   |==================================================                    |  71%
   |                                                                            
-  |===================================================                   |  72%
+  |==================================================                    |  72%
   |                                                                            
   |===================================================                   |  73%
   |                                                                            
   |====================================================                  |  74%
   |                                                                            
-  |=====================================================                 |  75%
+  |====================================================                  |  75%
   |                                                                            
   |=====================================================                 |  76%
   |                                                                            
   |======================================================                |  77%
   |                                                                            
-  |=======================================================               |  78%
+  |======================================================                |  78%
   |                                                                            
   |=======================================================               |  79%
   |                                                                            
   |========================================================              |  80%
+  |                                                                            
+  |========================================================              |  81%
   |                                                                            
   |=========================================================             |  81%
   |                                                                            
@@ -4226,32 +4226,35 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |==============================================================        |  88%
   |                                                                            
-  |==============================================================        |  89%
+  |===============================================================       |  89%
   |                                                                            
   |===============================================================       |  90%
   |                                                                            
   |================================================================      |  91%
   |                                                                            
-  |================================================================      |  92%
+  |=================================================================     |  92%
   |                                                                            
   |=================================================================     |  93%
   |                                                                            
   |==================================================================    |  94%
   |                                                                            
-  |==================================================================    |  95%
+  |===================================================================   |  95%
   |                                                                            
   |===================================================================   |  96%
   |                                                                            
   |====================================================================  |  97%
   |                                                                            
-  |====================================================================  |  98%
+  |===================================================================== |  98%
   |                                                                            
   |===================================================================== |  99%
   |                                                                            
   |======================================================================| 100%</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that all data loaded correctly</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(pa_counties) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>hospitals <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(hospitals, <span class="fu">st_crs</span>(pa_counties))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>census_tracts <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(census_tracts, <span class="fu">st_crs</span>(pa_counties))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that all data loaded correctly</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(pa_counties) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 67
 Columns: 20
@@ -4291,7 +4294,7 @@ $ CITY_OR_BO &lt;chr&gt; &quot;Monongahela&quot;, &quot;Philadelphia&quot;, &quo
 $ LATITUDE   &lt;dbl&gt; 40.18193, 39.92619, 40.02869, 40.15655, 39.80913, 40.24273,…
 $ TELEPHONE_ &lt;chr&gt; &quot;724-258-1000&quot;, &quot;610-480-8919&quot;, &quot;215-483-9900&quot;, &quot;7248840710…
 $ ZIP_CODE   &lt;chr&gt; &quot;15063&quot;, &quot;19145&quot;, &quot;19128&quot;, &quot;15301&quot;, &quot;15552&quot;, &quot;19464&quot;, &quot;1776…
-$ geometry   &lt;POINT [°]&gt; POINT (-79.91131 40.18193), POINT (-75.17005 39.9262)…</code></pre>
+$ geometry   &lt;POINT [m]&gt; POINT (-8895686 4892415), POINT (-8367892 4855223), P…</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(census_tracts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -4310,7 +4313,7 @@ $ STATE_NAME &lt;chr&gt; &quot;Pennsylvania&quot;, &quot;Pennsylvania&quot;, &qu
 $ LSAD       &lt;chr&gt; &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;,…
 $ ALAND      &lt;dbl&gt; 3043185, 993724, 1130204, 996553, 573726, 1539365, 1949529,…
 $ AWATER     &lt;dbl&gt; 0, 0, 0, 0, 0, 9308, 159015, 12469, 0, 0, 0, 1271, 6352, 74…
-$ geometry   &lt;MULTIPOLYGON [°]&gt; MULTIPOLYGON (((-77.03108 3..., MULTIPOLYGON (…</code></pre>
+$ geometry   &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLYGON (…</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(pa_counties)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -4362,46 +4365,6 @@ PROJCRS[&quot;WGS 84 / Pseudo-Mercator&quot;,
         BBOX[-85.06,-180,85.06,180]],
     ID[&quot;EPSG&quot;,3857]]</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(hospitals)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Coordinate Reference System:
-  User input: WGS 84 
-  wkt:
-GEOGCRS[&quot;WGS 84&quot;,
-    DATUM[&quot;World Geodetic System 1984&quot;,
-        ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
-            LENGTHUNIT[&quot;metre&quot;,1]]],
-    PRIMEM[&quot;Greenwich&quot;,0,
-        ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
-    CS[ellipsoidal,2],
-        AXIS[&quot;geodetic latitude (Lat)&quot;,north,
-            ORDER[1],
-            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
-        AXIS[&quot;geodetic longitude (Lon)&quot;,east,
-            ORDER[2],
-            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
-    ID[&quot;EPSG&quot;,4326]]</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(census_tracts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Coordinate Reference System:
-  User input: NAD83 
-  wkt:
-GEOGCRS[&quot;NAD83&quot;,
-    DATUM[&quot;North American Datum 1983&quot;,
-        ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
-            LENGTHUNIT[&quot;metre&quot;,1]]],
-    PRIMEM[&quot;Greenwich&quot;,0,
-        ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
-    CS[ellipsoidal,2],
-        AXIS[&quot;latitude&quot;,north,
-            ORDER[1],
-            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
-        AXIS[&quot;longitude&quot;,east,
-            ORDER[2],
-            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
-    ID[&quot;EPSG&quot;,4269]]</code></pre>
-</div>
 </div>
 <p><strong>Questions to answer:</strong></p>
 <ul>
@@ -4409,14 +4372,8 @@ GEOGCRS[&quot;NAD83&quot;,
 </li>
 <li><strong>How many census tracts?</strong> 3,345<br>
 </li>
-<li><strong>What coordinate reference system is each dataset in?</strong>
-<ol type="1">
-<li>PA Counties — WGS 84<br>
-</li>
-<li>Hospitals — WGS 84<br>
-</li>
-<li>Census Tracts — NAD83</li>
-</ol></li>
+<li><strong>What coordinate reference system is each dataset in?</strong>.<br>
+All use WGS 84 after I transformed the coordinate system.</li>
 </ul>
 <hr>
 </section>
@@ -4426,12 +4383,52 @@ GEOGCRS[&quot;NAD83&quot;,
 <p><strong>Required variables:</strong> - Total population - Median household income - Population 65 years and over (you may need to sum multiple age categories)</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get demographic data from ACS</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Join to tract boundaries</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get demographic data from ACS</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>demographic_data <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">&quot;tract&quot;</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">&quot;PA&quot;</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">t_p =</span> <span class="st">&quot;B01003_001&quot;</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">m_i =</span> <span class="st">&quot;B19013_001&quot;</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">a =</span> <span class="st">&quot;B01001_020&quot;</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">b =</span> <span class="st">&quot;B01001_021&quot;</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">c =</span> <span class="st">&quot;B01001_022&quot;</span>,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">d =</span> <span class="st">&quot;B01001_023&quot;</span>,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">e =</span> <span class="st">&quot;B01001_024&quot;</span>,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">f =</span> <span class="st">&quot;B01001_025&quot;</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">g =</span> <span class="st">&quot;B01001_044&quot;</span>,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">h =</span> <span class="st">&quot;B01001_045&quot;</span>,</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">i =</span> <span class="st">&quot;B01001_046&quot;</span>,</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">j =</span> <span class="st">&quot;B01001_047&quot;</span>,</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">k =</span> <span class="st">&quot;B01001_048&quot;</span>,</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">l =</span> <span class="st">&quot;B01001_049&quot;</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2022</span>,</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">survey =</span> <span class="st">&quot;acs5&quot;</span>,</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">&quot;wide&quot;</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">pop_65plusE =</span></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>      aE <span class="sc">+</span> bE <span class="sc">+</span> cE <span class="sc">+</span> dE <span class="sc">+</span> eE <span class="sc">+</span> fE <span class="sc">+</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>      gE <span class="sc">+</span> hE <span class="sc">+</span> iE <span class="sc">+</span> jE <span class="sc">+</span> kE <span class="sc">+</span> lE,</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">pop_65plusM =</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sqrt</span>(</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>        aM<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> bM<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cM<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> dM<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> eM<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> fM<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>        gM<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> hM<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> iM<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> jM<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> kM<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> lM<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>    GEOID,</span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>    NAME,</span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>    t_pE,</span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>    t_pM,</span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>    m_iE,</span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>    m_iM,</span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>    pop_65plusE,</span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>    pop_65plusM</span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Join to tract boundaries</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Questions to answer:</strong> - What year of ACS data are you using? - How many tracts have missing income data? - What is the median income across all PA census tracts?</p>
 <hr>
@@ -4441,7 +4438,7 @@ GEOGCRS[&quot;NAD83&quot;,
 <p>Identify census tracts with vulnerable populations based on TWO criteria: 1. Low median household income (choose an appropriate threshold) 2. Significant elderly population (choose an appropriate threshold)</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for vulnerable tracts based on your criteria</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for vulnerable tracts based on your criteria</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Questions to answer:</strong> - What income threshold did you choose and why? - What elderly population threshold did you choose and why? - How many tracts meet your vulnerability criteria? - What percentage of PA census tracts are considered vulnerable by your definition?</p>
 <hr>
@@ -4451,10 +4448,10 @@ GEOGCRS[&quot;NAD83&quot;,
 <p>For each vulnerable tract, calculate the distance to the nearest hospital.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform to appropriate projected CRS</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate distance from each tract centroid to nearest hospital</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform to appropriate projected CRS</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate distance from each tract centroid to nearest hospital</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Use an appropriate projected coordinate system for Pennsylvania - Calculate distances in miles - Explain why you chose your projection</p>
 <p><strong>Questions to answer:</strong> - What is the average distance to the nearest hospital for vulnerable tracts? - What is the maximum distance? - How many vulnerable tracts are more than 15 miles from the nearest hospital?</p>
@@ -4465,7 +4462,7 @@ GEOGCRS[&quot;NAD83&quot;,
 <p>Define “underserved” as vulnerable tracts that are more than 15 miles from the nearest hospital.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create underserved variable</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create underserved variable</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Questions to answer:</strong> - How many tracts are underserved? - What percentage of vulnerable tracts are underserved? - Does this surprise you? Why or why not?</p>
 <hr>
@@ -4475,10 +4472,10 @@ GEOGCRS[&quot;NAD83&quot;,
 <p>Use spatial joins and aggregation to calculate county-level statistics about vulnerable populations and hospital access.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spatial join tracts to counties</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate statistics by county</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spatial join tracts to counties</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate statistics by county</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Required county-level statistics:</strong> - Number of vulnerable tracts - Number of underserved tracts<br>
 - Percentage of vulnerable tracts that are underserved - Average distance to nearest hospital for vulnerable tracts - Total vulnerable population</p>
@@ -4490,7 +4487,7 @@ GEOGCRS[&quot;NAD83&quot;,
 <p>Create a professional table showing the top 10 priority counties for healthcare investment.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and format priority counties table</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and format priority counties table</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Use <code>knitr::kable()</code> or similar for formatting - Include descriptive column names - Format numbers appropriately (commas for population, percentages, etc.) - Add an informative caption - Sort by priority (you decide the metric)</p>
 <hr>
@@ -4505,7 +4502,7 @@ GEOGCRS[&quot;NAD83&quot;,
 <p>Create a choropleth map showing healthcare access challenges at the county level.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create county-level access map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create county-level access map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Fill counties by percentage of vulnerable tracts that are underserved - Include hospital locations as points - Use an appropriate color scheme - Include clear title, subtitle, and caption - Use <code>theme_void()</code> or similar clean theme - Add a legend with formatted labels</p>
 <hr>
@@ -4515,7 +4512,7 @@ GEOGCRS[&quot;NAD83&quot;,
 <p>Create a map highlighting underserved vulnerable tracts.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create detailed tract-level map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create detailed tract-level map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Show underserved vulnerable tracts in a contrasting color - Include county boundaries for context - Show hospital locations - Use appropriate visual hierarchy (what should stand out?) - Include informative title and subtitle</p>
 <hr>
@@ -4525,7 +4522,7 @@ GEOGCRS[&quot;NAD83&quot;,
 <p>Create a visualization showing the distribution of distances to hospitals for vulnerable populations.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create distribution visualization</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create distribution visualization</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Suggested chart types:</strong> - Histogram or density plot of distances - Box plot comparing distances across regions - Bar chart of underserved tracts by county - Scatter plot of distance vs. vulnerable population size</p>
 <p><strong>Requirements:</strong> - Clear axes labels with units - Appropriate title - Professional formatting - Brief interpretation (1-2 sentences as a caption or in text)</p>
@@ -4597,7 +4594,7 @@ GEOGCRS[&quot;NAD83&quot;,
 </ul></li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load your additional dataset</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load your additional dataset</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Questions to answer:</strong> - What dataset did you choose and why? - What is the data source and date? - How many features does it contain? - What CRS is it in? Did you need to transform it?</p>
 <hr>
@@ -4614,7 +4611,7 @@ GEOGCRS[&quot;NAD83&quot;,
 <p><strong>Required operations (choose 2+):</strong> - Buffers - Spatial joins - Spatial filtering with predicates - Distance calculations - Intersections or unions - Point-in-polygon aggregation</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your spatial analysis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your spatial analysis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Analysis requirements:</strong> - Clear code comments explaining each step - Appropriate CRS transformations - Summary statistics or counts - At least one map showing your findings - Brief interpretation of results (3-5 sentences)</p>
 <p><strong>Your interpretation:</strong></p>

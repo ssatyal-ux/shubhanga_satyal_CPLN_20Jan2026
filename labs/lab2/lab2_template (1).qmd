@@ -67,23 +67,23 @@ hospitals <- st_read("data/hospitals.geojson")
 census_tracts <- tracts(state = "PA", cb = TRUE)
 
 
+hospitals <- st_transform(hospitals, st_crs(pa_counties))
+census_tracts <- st_transform(census_tracts, st_crs(pa_counties))
+
 # Check that all data loaded correctly
 glimpse(pa_counties) 
 glimpse(hospitals)
 glimpse(census_tracts)
+
 st_crs(pa_counties)
-st_crs(hospitals)
-st_crs(census_tracts)
 ```
 
 **Questions to answer:**
 
 - **How many hospitals are in your dataset?** 223  
 - **How many census tracts?** 3,345  
-- **What coordinate reference system is each dataset in?**  
-  1. PA Counties — WGS 84  
-  2. Hospitals — WGS 84  
-  3. Census Tracts — NAD83  
+- **What coordinate reference system is each dataset in?**.  
+   All use WGS 84 after I transformed the coordinate system. 
 
 ---
 
@@ -99,11 +99,53 @@ Use `tidycensus` to download tract-level demographic data for Pennsylvania.
 **Your Task:**
 ```{r}
 # Get demographic data from ACS
-
-
-
+demographic_data <- get_acs(
+  geography = "tract",
+  state = "PA",
+  variables = c(
+    t_p = "B01003_001",
+    m_i = "B19013_001",
+    a = "B01001_020",
+    b = "B01001_021",
+    c = "B01001_022",
+    d = "B01001_023",
+    e = "B01001_024",
+    f = "B01001_025",
+    g = "B01001_044",
+    h = "B01001_045",
+    i = "B01001_046",
+    j = "B01001_047",
+    k = "B01001_048",
+    l = "B01001_049"
+  ),
+  year = 2022,
+  survey = "acs5",
+  output = "wide"
+) %>%
+  mutate(
+    pop_65plusE =
+      aE + bE + cE + dE + eE + fE +
+      gE + hE + iE + jE + kE + lE,
+    pop_65plusM =
+      sqrt(
+        aM^2 + bM^2 + cM^2 + dM^2 + eM^2 + fM^2 +
+        gM^2 + hM^2 + iM^2 + jM^2 + kM^2 + lM^2
+      )
+  ) %>%
+  select(
+    GEOID,
+    NAME,
+    t_pE,
+    t_pM,
+    m_iE,
+    m_iM,
+    pop_65plusE,
+    pop_65plusM
+  )
 
 # Join to tract boundaries
+
+
 
 
 ```
