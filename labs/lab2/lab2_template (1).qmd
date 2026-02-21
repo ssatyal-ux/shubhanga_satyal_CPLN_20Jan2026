@@ -77,13 +77,13 @@ st_crs(census_tracts)
 ```
 
 **Questions to answer:**
-- **How many hospitals are in your dataset?** **223 hospitals
-- **How many census tracts?**
-**3,345 census tracts
-- **What coordinate reference system is each dataset in?**
-**1. PA Counties -- WGS 84
-**2. Hospitals -- WGS 84
-**3. Census Tracts -- NAD83
+
+- **How many hospitals are in your dataset?** 223  
+- **How many census tracts?** 3,345  
+- **What coordinate reference system is each dataset in?**  
+  1. PA Counties — WGS 84  
+  2. Hospitals — WGS 84  
+  3. Census Tracts — NAD83  
 
 ---
 
