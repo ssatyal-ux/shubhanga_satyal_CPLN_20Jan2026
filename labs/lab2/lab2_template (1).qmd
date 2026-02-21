@@ -76,7 +76,7 @@ glimpse(hospitals)
 glimpse(census_tracts)
 glimpse(census_tracts)
 
-st_crs(pa_counties)
+summarise(pa_counties)
 ```
 
 **Questions to answer:**
@@ -151,20 +151,22 @@ join_tract_boundaries <- census_tracts %>%
   left_join(demographic_data, by = "GEOID")
 
 glimpse(join_tract_boundaries)
-summary(join_tract_boundaries)%>%
-  kable()
+
+
+join_tract_boundaries%>%
+  select(m_iE)%>%
+  summary()
 
 ```
 
 **Questions to answer:**
-- What year of ACS data are you using?
-2022
+- **What year of ACS data are you using?**. 2022. 
 
-- How many tracts have missing income data?
-62
+- **How many tracts have missing income data?**. 2023. 
 
-- What is the median income across all PA census tracts?
-70,188
+
+
+- **What is the median income across all PA census tracts?**. 70,188. 
 ---
 
 #### Step 3: Define Vulnerable Populations 

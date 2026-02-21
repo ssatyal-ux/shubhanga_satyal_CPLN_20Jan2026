@@ -3998,7 +3998,7 @@ vertical-align: -.125em;
 <p>Your analysis should identify counties that should be priorities for healthcare investment and policy intervention.</p>
 </section>
 <section id="required-analysis-steps" class="level3">
-<h3 class="anchored" data-anchor-id="required-analysis-steps">Required Analysis Steps</h3>
+<h3 class="anchored">Required Analysis Steps</h3>
 <p>Complete the following analysis, documenting each step with code and brief explanations:</p>
 <section id="step-1-data-collection-5-points" class="level4">
 <h4 class="anchored" data-anchor-id="step-1-data-collection-5-points">Step 1: Data Collection (5 points)</h4>
@@ -4046,15 +4046,17 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |                                                                      |   0%
   |                                                                            
-  |                                                                      |   1%
-  |                                                                            
   |=                                                                     |   1%
   |                                                                            
   |=                                                                     |   2%
   |                                                                            
+  |==                                                                    |   2%
+  |                                                                            
   |==                                                                    |   3%
   |                                                                            
   |===                                                                   |   4%
+  |                                                                            
+  |===                                                                   |   5%
   |                                                                            
   |====                                                                  |   5%
   |                                                                            
@@ -4066,11 +4068,13 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |======                                                                |   9%
   |                                                                            
+  |=======                                                               |   9%
+  |                                                                            
   |=======                                                               |  10%
   |                                                                            
   |========                                                              |  11%
   |                                                                            
-  |=========                                                             |  12%
+  |========                                                              |  12%
   |                                                                            
   |=========                                                             |  13%
   |                                                                            
@@ -4336,55 +4340,15 @@ $ ALAND      &lt;dbl&gt; 3043185, 993724, 1130204, 996553, 573726, 1539365, 1949
 $ AWATER     &lt;dbl&gt; 0, 0, 0, 0, 0, 9308, 159015, 12469, 0, 0, 0, 1271, 6352, 74…
 $ geometry   &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLYGON (…</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(pa_counties)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(pa_counties)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Coordinate Reference System:
-  User input: WGS 84 / Pseudo-Mercator 
-  wkt:
-PROJCRS[&quot;WGS 84 / Pseudo-Mercator&quot;,
-    BASEGEOGCRS[&quot;WGS 84&quot;,
-        ENSEMBLE[&quot;World Geodetic System 1984 ensemble&quot;,
-            MEMBER[&quot;World Geodetic System 1984 (Transit)&quot;],
-            MEMBER[&quot;World Geodetic System 1984 (G730)&quot;],
-            MEMBER[&quot;World Geodetic System 1984 (G873)&quot;],
-            MEMBER[&quot;World Geodetic System 1984 (G1150)&quot;],
-            MEMBER[&quot;World Geodetic System 1984 (G1674)&quot;],
-            MEMBER[&quot;World Geodetic System 1984 (G1762)&quot;],
-            MEMBER[&quot;World Geodetic System 1984 (G2139)&quot;],
-            MEMBER[&quot;World Geodetic System 1984 (G2296)&quot;],
-            ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
-                LENGTHUNIT[&quot;metre&quot;,1]],
-            ENSEMBLEACCURACY[2.0]],
-        PRIMEM[&quot;Greenwich&quot;,0,
-            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
-        ID[&quot;EPSG&quot;,4326]],
-    CONVERSION[&quot;Popular Visualisation Pseudo-Mercator&quot;,
-        METHOD[&quot;Popular Visualisation Pseudo Mercator&quot;,
-            ID[&quot;EPSG&quot;,1024]],
-        PARAMETER[&quot;Latitude of natural origin&quot;,0,
-            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
-            ID[&quot;EPSG&quot;,8801]],
-        PARAMETER[&quot;Longitude of natural origin&quot;,0,
-            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
-            ID[&quot;EPSG&quot;,8802]],
-        PARAMETER[&quot;False easting&quot;,0,
-            LENGTHUNIT[&quot;metre&quot;,1],
-            ID[&quot;EPSG&quot;,8806]],
-        PARAMETER[&quot;False northing&quot;,0,
-            LENGTHUNIT[&quot;metre&quot;,1],
-            ID[&quot;EPSG&quot;,8807]]],
-    CS[Cartesian,2],
-        AXIS[&quot;easting (X)&quot;,east,
-            ORDER[1],
-            LENGTHUNIT[&quot;metre&quot;,1]],
-        AXIS[&quot;northing (Y)&quot;,north,
-            ORDER[2],
-            LENGTHUNIT[&quot;metre&quot;,1]],
-    USAGE[
-        SCOPE[&quot;Web mapping and visualisation.&quot;],
-        AREA[&quot;World between 85.06°S and 85.06°N.&quot;],
-        BBOX[-85.06,-180,85.06,180]],
-    ID[&quot;EPSG&quot;,3857]]</code></pre>
+<pre><code>Simple feature collection with 1 feature and 0 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: -8963377 ymin: 4825316 xmax: -8314404 ymax: 5201413
+Projected CRS: WGS 84 / Pseudo-Mercator
+                        geometry
+1 POLYGON ((-8907167 4825507,...</code></pre>
 </div>
 </div>
 <p><strong>Questions to answer:</strong></p>
@@ -4399,7 +4363,7 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <hr>
 </section>
 <section id="step-2-get-demographic-data" class="level4">
-<h4 class="anchored" data-anchor-id="step-2-get-demographic-data">Step 2: Get Demographic Data</h4>
+<h4 class="anchored">Step 2: Get Demographic Data</h4>
 <p>Use <code>tidycensus</code> to download tract-level demographic data for Pennsylvania.</p>
 <p><strong>Required variables:</strong> - Total population - Median household income - Population 65 years and over (you may need to sum multiple age categories)</p>
 <p><strong>Your Task:</strong></p>
@@ -4491,237 +4455,24 @@ $ pop_65plusE &lt;dbl&gt; 946, 238, 463, 282, 636, 600, 617, 500, 487, 375, 1658
 $ pop_65plusM &lt;dbl&gt; 250.30182, 90.16651, 105.41347, 77.56932, 157.65151, 138.3…
 $ geometry    &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLYGON …</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(join_tract_boundaries)<span class="sc">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 0%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 5%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 3%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 5%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: left;">STATEFP</th>
-<th style="text-align: left;">COUNTYFP</th>
-<th style="text-align: left;">TRACTCE</th>
-<th style="text-align: left;">GEOIDFQ</th>
-<th style="text-align: left;">GEOID</th>
-<th style="text-align: left;">NAME.x</th>
-<th style="text-align: left;">NAMELSAD</th>
-<th style="text-align: left;">STUSPS</th>
-<th style="text-align: left;">NAMELSADCO</th>
-<th style="text-align: left;">STATE_NAME</th>
-<th style="text-align: left;">LSAD</th>
-<th style="text-align: left;">ALAND</th>
-<th style="text-align: left;">AWATER</th>
-<th style="text-align: left;">NAME.y</th>
-<th style="text-align: left;">t_pE</th>
-<th style="text-align: left;">t_pM</th>
-<th style="text-align: left;">m_iE</th>
-<th style="text-align: left;">m_iM</th>
-<th style="text-align: left;">pop_65plusE</th>
-<th style="text-align: left;">pop_65plusM</th>
-<th style="text-align: left;">geometry</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"></td>
-<td style="text-align: left;">Length:3445</td>
-<td style="text-align: left;">Length:3445</td>
-<td style="text-align: left;">Length:3445</td>
-<td style="text-align: left;">Length:3445</td>
-<td style="text-align: left;">Length:3445</td>
-<td style="text-align: left;">Length:3445</td>
-<td style="text-align: left;">Length:3445</td>
-<td style="text-align: left;">Length:3445</td>
-<td style="text-align: left;">Length:3445</td>
-<td style="text-align: left;">Length:3445</td>
-<td style="text-align: left;">Length:3445</td>
-<td style="text-align: left;">Min. :7.224e+04</td>
-<td style="text-align: left;">Min. : 0</td>
-<td style="text-align: left;">Length:3445</td>
-<td style="text-align: left;">Min. : 0</td>
-<td style="text-align: left;">Min. : 4</td>
-<td style="text-align: left;">Min. : 11558</td>
-<td style="text-align: left;">Min. : 618</td>
-<td style="text-align: left;">Min. : 0.0</td>
-<td style="text-align: left;">Min. : 29.12</td>
-<td style="text-align: left;">MULTIPOLYGON :3445</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: left;">Class :character</td>
-<td style="text-align: left;">Class :character</td>
-<td style="text-align: left;">Class :character</td>
-<td style="text-align: left;">Class :character</td>
-<td style="text-align: left;">Class :character</td>
-<td style="text-align: left;">Class :character</td>
-<td style="text-align: left;">Class :character</td>
-<td style="text-align: left;">Class :character</td>
-<td style="text-align: left;">Class :character</td>
-<td style="text-align: left;">Class :character</td>
-<td style="text-align: left;">Class :character</td>
-<td style="text-align: left;">1st Qu.:1.320e+06</td>
-<td style="text-align: left;">1st Qu.: 0</td>
-<td style="text-align: left;">Class :character</td>
-<td style="text-align: left;">1st Qu.: 2622</td>
-<td style="text-align: left;">1st Qu.: 247</td>
-<td style="text-align: left;">1st Qu.: 55924</td>
-<td style="text-align: left;">1st Qu.: 8867</td>
-<td style="text-align: left;">1st Qu.: 424.0</td>
-<td style="text-align: left;">1st Qu.:108.85</td>
-<td style="text-align: left;">epsg:3857 : 0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"></td>
-<td style="text-align: left;">Mode :character</td>
-<td style="text-align: left;">Mode :character</td>
-<td style="text-align: left;">Mode :character</td>
-<td style="text-align: left;">Mode :character</td>
-<td style="text-align: left;">Mode :character</td>
-<td style="text-align: left;">Mode :character</td>
-<td style="text-align: left;">Mode :character</td>
-<td style="text-align: left;">Mode :character</td>
-<td style="text-align: left;">Mode :character</td>
-<td style="text-align: left;">Mode :character</td>
-<td style="text-align: left;">Mode :character</td>
-<td style="text-align: left;">Median :4.183e+06</td>
-<td style="text-align: left;">Median : 13905</td>
-<td style="text-align: left;">Mode :character</td>
-<td style="text-align: left;">Median : 3669</td>
-<td style="text-align: left;">Median : 374</td>
-<td style="text-align: left;">Median : 70188</td>
-<td style="text-align: left;">Median : 13027</td>
-<td style="text-align: left;">Median : 656.0</td>
-<td style="text-align: left;">Median :154.58</td>
-<td style="text-align: left;">+proj=merc…: 0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">Mean :3.364e+07</td>
-<td style="text-align: left;">Mean : 433440</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">Mean : 3770</td>
-<td style="text-align: left;">Mean : 403</td>
-<td style="text-align: left;">Mean : 77527</td>
-<td style="text-align: left;">Mean : 15437</td>
-<td style="text-align: left;">Mean : 706.6</td>
-<td style="text-align: left;">Mean :168.56</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">3rd Qu.:2.858e+07</td>
-<td style="text-align: left;">3rd Qu.: 240806</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">3rd Qu.: 4803</td>
-<td style="text-align: left;">3rd Qu.: 533</td>
-<td style="text-align: left;">3rd Qu.: 93286</td>
-<td style="text-align: left;">3rd Qu.: 19030</td>
-<td style="text-align: left;">3rd Qu.: 927.0</td>
-<td style="text-align: left;">3rd Qu.:215.26</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">Max. :1.024e+09</td>
-<td style="text-align: left;">Max. :29792870</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">Max. :10323</td>
-<td style="text-align: left;">Max. :2027</td>
-<td style="text-align: left;">Max. :250001</td>
-<td style="text-align: left;">Max. :165570</td>
-<td style="text-align: left;">Max. :2462.0</td>
-<td style="text-align: left;">Max. :608.21</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA’s :62</td>
-<td style="text-align: left;">NA’s :69</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-</tr>
-</tbody>
-</table>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>join_tract_boundaries<span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(m_iE)<span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      m_iE                 geometry   
+ Min.   : 11558   MULTIPOLYGON :3445  
+ 1st Qu.: 55924   epsg:3857    :   0  
+ Median : 70188   +proj=merc...:   0  
+ Mean   : 77527                       
+ 3rd Qu.: 93286                       
+ Max.   :250001                       
+ NA&#39;s   :62                           </code></pre>
 </div>
 </div>
-<p><strong>Questions to answer:</strong> - What year of ACS data are you using? 2022</p>
+<p><strong>Questions to answer:</strong> - <strong>What year of ACS data are you using?</strong>. 2022.</p>
 <ul>
-<li><p>How many tracts have missing income data? 62</p></li>
-<li><p>What is the median income across all PA census tracts? 70,188 —</p></li>
+<li><p><strong>How many tracts have missing income data?</strong>. 2023.</p></li>
+<li><h2 id="what-is-the-median-income-across-all-pa-census-tracts.-70188." class="anchored" data-anchor-id="step-2-get-demographic-data"><strong>What is the median income across all PA census tracts?</strong>. 70,188.</h2></li>
 </ul>
 </section>
 <section id="step-3-define-vulnerable-populations" class="level4">
@@ -4729,7 +4480,7 @@ $ geometry    &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLY
 <p>Identify census tracts with vulnerable populations based on TWO criteria: 1. Low median household income (choose an appropriate threshold) 2. Significant elderly population (choose an appropriate threshold)</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for vulnerable tracts based on your criteria</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for vulnerable tracts based on your criteria</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Questions to answer:</strong> - What income threshold did you choose and why? - What elderly population threshold did you choose and why? - How many tracts meet your vulnerability criteria? - What percentage of PA census tracts are considered vulnerable by your definition?</p>
 <hr>
@@ -4739,10 +4490,10 @@ $ geometry    &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLY
 <p>For each vulnerable tract, calculate the distance to the nearest hospital.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform to appropriate projected CRS</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate distance from each tract centroid to nearest hospital</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform to appropriate projected CRS</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate distance from each tract centroid to nearest hospital</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Use an appropriate projected coordinate system for Pennsylvania - Calculate distances in miles - Explain why you chose your projection</p>
 <p><strong>Questions to answer:</strong> - What is the average distance to the nearest hospital for vulnerable tracts? - What is the maximum distance? - How many vulnerable tracts are more than 15 miles from the nearest hospital?</p>
@@ -4753,7 +4504,7 @@ $ geometry    &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLY
 <p>Define “underserved” as vulnerable tracts that are more than 15 miles from the nearest hospital.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create underserved variable</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create underserved variable</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Questions to answer:</strong> - How many tracts are underserved? - What percentage of vulnerable tracts are underserved? - Does this surprise you? Why or why not?</p>
 <hr>
@@ -4763,10 +4514,10 @@ $ geometry    &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLY
 <p>Use spatial joins and aggregation to calculate county-level statistics about vulnerable populations and hospital access.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spatial join tracts to counties</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate statistics by county</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spatial join tracts to counties</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate statistics by county</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Required county-level statistics:</strong> - Number of vulnerable tracts - Number of underserved tracts<br>
 - Percentage of vulnerable tracts that are underserved - Average distance to nearest hospital for vulnerable tracts - Total vulnerable population</p>
@@ -4778,7 +4529,7 @@ $ geometry    &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLY
 <p>Create a professional table showing the top 10 priority counties for healthcare investment.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and format priority counties table</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and format priority counties table</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Use <code>knitr::kable()</code> or similar for formatting - Include descriptive column names - Format numbers appropriately (commas for population, percentages, etc.) - Add an informative caption - Sort by priority (you decide the metric)</p>
 <hr>
@@ -4793,7 +4544,7 @@ $ geometry    &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLY
 <p>Create a choropleth map showing healthcare access challenges at the county level.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create county-level access map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create county-level access map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Fill counties by percentage of vulnerable tracts that are underserved - Include hospital locations as points - Use an appropriate color scheme - Include clear title, subtitle, and caption - Use <code>theme_void()</code> or similar clean theme - Add a legend with formatted labels</p>
 <hr>
@@ -4803,7 +4554,7 @@ $ geometry    &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLY
 <p>Create a map highlighting underserved vulnerable tracts.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create detailed tract-level map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create detailed tract-level map</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Requirements:</strong> - Show underserved vulnerable tracts in a contrasting color - Include county boundaries for context - Show hospital locations - Use appropriate visual hierarchy (what should stand out?) - Include informative title and subtitle</p>
 <hr>
@@ -4813,7 +4564,7 @@ $ geometry    &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLY
 <p>Create a visualization showing the distribution of distances to hospitals for vulnerable populations.</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create distribution visualization</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create distribution visualization</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Suggested chart types:</strong> - Histogram or density plot of distances - Box plot comparing distances across regions - Bar chart of underserved tracts by county - Scatter plot of distance vs. vulnerable population size</p>
 <p><strong>Requirements:</strong> - Clear axes labels with units - Appropriate title - Professional formatting - Brief interpretation (1-2 sentences as a caption or in text)</p>
@@ -4885,7 +4636,7 @@ $ geometry    &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLY
 </ul></li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load your additional dataset</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load your additional dataset</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Questions to answer:</strong> - What dataset did you choose and why? - What is the data source and date? - How many features does it contain? - What CRS is it in? Did you need to transform it?</p>
 <hr>
@@ -4902,7 +4653,7 @@ $ geometry    &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLY
 <p><strong>Required operations (choose 2+):</strong> - Buffers - Spatial joins - Spatial filtering with predicates - Distance calculations - Intersections or unions - Point-in-polygon aggregation</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your spatial analysis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your spatial analysis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Analysis requirements:</strong> - Clear code comments explaining each step - Appropriate CRS transformations - Summary statistics or counts - At least one map showing your findings - Brief interpretation of results (3-5 sentences)</p>
 <p><strong>Your interpretation:</strong></p>
