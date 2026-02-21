@@ -104,8 +104,8 @@ demographic_data <- get_acs(
   geography = "tract",
   state = "PA",
   variables = c(
-    t_p = "B01003_001",
-    m_i = "B19013_001",
+    total_population = "B01003_001",
+    median_income = "B19013_001",
     a = "B01001_020",
     b = "B01001_021",
     c = "B01001_022",
@@ -136,10 +136,10 @@ demographic_data <- get_acs(
   select(
     GEOID,
     NAME,
-    t_pE,
-    t_pM,
-    m_iE,
-    m_iM,
+    total_populationE,
+    total_populationM,
+    median_incomeE,
+    median_incomeM,
     pop_65plusE,
     pop_65plusM
   )
@@ -154,8 +154,9 @@ glimpse(join_tract_boundaries)
 
 
 join_tract_boundaries%>%
-  select(m_iE)%>%
-  summary()
+  select(median_incomeE)%>%
+  summary()%>%
+  kable()
 
 ```
 
@@ -185,16 +186,41 @@ Identify census tracts with vulnerable populations based on TWO criteria:
 ```{r}
 # Filter for vulnerable tracts based on your criteria
 
+identify_vulnerability <- join_tract_boundaries %>%
+  mutate(
+    plus_pct = (pop_65plusE / total_populationE) * 100,
+    category = case_when(
+      median_incomeE < 55924 & plus_pct > 20 ~ "Vulnerable",
+      TRUE ~ "Not Vulnerable"
+    )
+  )
+
+count(identify_vulnerability, category)%>%
+  mutate(
+    percentage_vulner = (n / sum(n))*100
+  )%>%
+  kable()
+
+head(identify_vulnerability)%>%
+  kable()
 
 
 
 ```
 
-**Questions to answer:**
-- What income threshold did you choose and why?
-- What elderly population threshold did you choose and why?
-- How many tracts meet your vulnerability criteria?
-- What percentage of PA census tracts are considered vulnerable by your definition?
+**Questions to answer:**. 
+
+
+- **What income threshold did you choose and why?**. 
+  less than 55,943 (Lower Quartile)
+- **What elderly population threshold did you choose and why?**
+I chose elderly population over 65 year old, and in areas where the population is more than 20%. 
+
+- **How many tracts meet your vulnerability criteria?**
+  273. 
+  
+- **What percentage of PA census tracts are considered vulnerable by your definition?**. 
+  7.9%. 
 
 ---
 

@@ -4048,7 +4048,7 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |=                                                                     |   1%
   |                                                                            
-  |==                                                                    |   2%
+  |=                                                                     |   2%
   |                                                                            
   |==                                                                    |   3%
   |                                                                            
@@ -4068,7 +4068,7 @@ Geodetic CRS:  WGS 84</code></pre>
   |                                                                            
   |========                                                              |  11%
   |                                                                            
-  |=========                                                             |  12%
+  |========                                                              |  12%
   |                                                                            
   |=========                                                             |  13%
   |                                                                            
@@ -4367,8 +4367,8 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">&quot;tract&quot;</span>,</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">&quot;PA&quot;</span>,</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">t_p =</span> <span class="st">&quot;B01003_001&quot;</span>,</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">m_i =</span> <span class="st">&quot;B19013_001&quot;</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_population =</span> <span class="st">&quot;B01003_001&quot;</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_income =</span> <span class="st">&quot;B19013_001&quot;</span>,</span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">a =</span> <span class="st">&quot;B01001_020&quot;</span>,</span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">b =</span> <span class="st">&quot;B01001_021&quot;</span>,</span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">c =</span> <span class="st">&quot;B01001_022&quot;</span>,</span>
@@ -4399,10 +4399,10 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
 <span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>    GEOID,</span>
 <span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>    NAME,</span>
-<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>    t_pE,</span>
-<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>    t_pM,</span>
-<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>    m_iE,</span>
-<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>    m_iM,</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>    total_populationE,</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>    total_populationM,</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>    median_incomeE,</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>    median_incomeM,</span>
 <span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>    pop_65plusE,</span>
 <span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>    pop_65plusM</span>
 <span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>  )</span>
@@ -4410,14 +4410,15 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(demographic_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 8
-  GEOID       NAME               t_pE  t_pM   m_iE  m_iM pop_65plusE pop_65plusM
-  &lt;chr&gt;       &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-1 42001030101 Census Tract 301…  2658    14  80231 12428         521        112.
-2 42001030103 Census Tract 301…  2416   329 111603 13757         467        229.
-3 42001030104 Census Tract 301…  3395   332  81150 37724         730        200.
-4 42001030200 Census Tract 302…  5475   464  68363  3192        1020        180.
-5 42001030300 Census Tract 303…  4412   215  81577  6735         722        154.
-6 42001030400 Census Tract 304…  5462   206  88558 15104        1206        270.</code></pre>
+  GEOID  NAME  total_populationE total_populationM median_incomeE median_incomeM
+  &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;             &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
+1 42001… Cens…              2658                14          80231          12428
+2 42001… Cens…              2416               329         111603          13757
+3 42001… Cens…              3395               332          81150          37724
+4 42001… Cens…              5475               464          68363           3192
+5 42001… Cens…              4412               215          81577           6735
+6 42001… Cens…              5462               206          88558          15104
+# ℹ 2 more variables: pop_65plusE &lt;dbl&gt;, pop_65plusM &lt;dbl&gt;</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join to tract boundaries</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>join_tract_boundaries <span class="ot">&lt;-</span> census_tracts <span class="sc">%&gt;%</span></span>
@@ -4427,40 +4428,79 @@ All use WGS 84 after I transformed the coordinate system.</li>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 3,445
 Columns: 21
-$ STATEFP     &lt;chr&gt; &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;…
-$ COUNTYFP    &lt;chr&gt; &quot;001&quot;, &quot;013&quot;, &quot;013&quot;, &quot;013&quot;, &quot;013&quot;, &quot;011&quot;, &quot;011&quot;, &quot;011&quot;, &quot;0…
-$ TRACTCE     &lt;chr&gt; &quot;031101&quot;, &quot;100400&quot;, &quot;100500&quot;, &quot;100800&quot;, &quot;101900&quot;, &quot;011200&quot;…
-$ GEOIDFQ     &lt;chr&gt; &quot;1400000US42001031101&quot;, &quot;1400000US42013100400&quot;, &quot;1400000US…
-$ GEOID       &lt;chr&gt; &quot;42001031101&quot;, &quot;42013100400&quot;, &quot;42013100500&quot;, &quot;42013100800&quot;…
-$ NAME.x      &lt;chr&gt; &quot;311.01&quot;, &quot;1004&quot;, &quot;1005&quot;, &quot;1008&quot;, &quot;1019&quot;, &quot;112&quot;, &quot;2&quot;, &quot;115…
-$ NAMELSAD    &lt;chr&gt; &quot;Census Tract 311.01&quot;, &quot;Census Tract 1004&quot;, &quot;Census Tract …
-$ STUSPS      &lt;chr&gt; &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;…
-$ NAMELSADCO  &lt;chr&gt; &quot;Adams County&quot;, &quot;Blair County&quot;, &quot;Blair County&quot;, &quot;Blair Cou…
-$ STATE_NAME  &lt;chr&gt; &quot;Pennsylvania&quot;, &quot;Pennsylvania&quot;, &quot;Pennsylvania&quot;, &quot;Pennsylva…
-$ LSAD        &lt;chr&gt; &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;…
-$ ALAND       &lt;dbl&gt; 3043185, 993724, 1130204, 996553, 573726, 1539365, 1949529…
-$ AWATER      &lt;dbl&gt; 0, 0, 0, 0, 0, 9308, 159015, 12469, 0, 0, 0, 1271, 6352, 7…
-$ NAME.y      &lt;chr&gt; &quot;Census Tract 311.01; Adams County; Pennsylvania&quot;, &quot;Census…
-$ t_pE        &lt;dbl&gt; 5070, 1589, 3380, 1860, 1436, 4533, 4318, 2923, 3936, 1916…
-$ t_pM        &lt;dbl&gt; 358, 253, 580, 256, 196, 19, 678, 16, 456, 368, 644, 308, …
-$ m_iE        &lt;dbl&gt; 61847, 67120, 50450, 64583, 16429, 56818, 23424, 76410, 81…
-$ m_iM        &lt;dbl&gt; 8600, 12405, 5089, 19957, 2414, 7404, 5240, 5720, 17377, 9…
-$ pop_65plusE &lt;dbl&gt; 946, 238, 463, 282, 636, 600, 617, 500, 487, 375, 1658, 59…
-$ pop_65plusM &lt;dbl&gt; 250.30182, 90.16651, 105.41347, 77.56932, 157.65151, 138.3…
-$ geometry    &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLYGON …</code></pre>
+$ STATEFP           &lt;chr&gt; &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;, &quot;42&quot;…
+$ COUNTYFP          &lt;chr&gt; &quot;001&quot;, &quot;013&quot;, &quot;013&quot;, &quot;013&quot;, &quot;013&quot;, &quot;011&quot;, &quot;011&quot;, &quot;01…
+$ TRACTCE           &lt;chr&gt; &quot;031101&quot;, &quot;100400&quot;, &quot;100500&quot;, &quot;100800&quot;, &quot;101900&quot;, &quot;0…
+$ GEOIDFQ           &lt;chr&gt; &quot;1400000US42001031101&quot;, &quot;1400000US42013100400&quot;, &quot;140…
+$ GEOID             &lt;chr&gt; &quot;42001031101&quot;, &quot;42013100400&quot;, &quot;42013100500&quot;, &quot;420131…
+$ NAME.x            &lt;chr&gt; &quot;311.01&quot;, &quot;1004&quot;, &quot;1005&quot;, &quot;1008&quot;, &quot;1019&quot;, &quot;112&quot;, &quot;2&quot;…
+$ NAMELSAD          &lt;chr&gt; &quot;Census Tract 311.01&quot;, &quot;Census Tract 1004&quot;, &quot;Census …
+$ STUSPS            &lt;chr&gt; &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;, &quot;PA&quot;…
+$ NAMELSADCO        &lt;chr&gt; &quot;Adams County&quot;, &quot;Blair County&quot;, &quot;Blair County&quot;, &quot;Bla…
+$ STATE_NAME        &lt;chr&gt; &quot;Pennsylvania&quot;, &quot;Pennsylvania&quot;, &quot;Pennsylvania&quot;, &quot;Pen…
+$ LSAD              &lt;chr&gt; &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;, &quot;CT&quot;…
+$ ALAND             &lt;dbl&gt; 3043185, 993724, 1130204, 996553, 573726, 1539365, 1…
+$ AWATER            &lt;dbl&gt; 0, 0, 0, 0, 0, 9308, 159015, 12469, 0, 0, 0, 1271, 6…
+$ NAME.y            &lt;chr&gt; &quot;Census Tract 311.01; Adams County; Pennsylvania&quot;, &quot;…
+$ total_populationE &lt;dbl&gt; 5070, 1589, 3380, 1860, 1436, 4533, 4318, 2923, 3936…
+$ total_populationM &lt;dbl&gt; 358, 253, 580, 256, 196, 19, 678, 16, 456, 368, 644,…
+$ median_incomeE    &lt;dbl&gt; 61847, 67120, 50450, 64583, 16429, 56818, 23424, 764…
+$ median_incomeM    &lt;dbl&gt; 8600, 12405, 5089, 19957, 2414, 7404, 5240, 5720, 17…
+$ pop_65plusE       &lt;dbl&gt; 946, 238, 463, 282, 636, 600, 617, 500, 487, 375, 16…
+$ pop_65plusM       &lt;dbl&gt; 250.30182, 90.16651, 105.41347, 77.56932, 157.65151,…
+$ geometry          &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPO…</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>join_tract_boundaries<span class="sc">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(m_iE)<span class="sc">%&gt;%</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      m_iE                 geometry   
- Min.   : 11558   MULTIPOLYGON :3445  
- 1st Qu.: 55924   epsg:3857    :   0  
- Median : 70188   +proj=merc...:   0  
- Mean   : 77527                       
- 3rd Qu.: 93286                       
- Max.   :250001                       
- NA&#39;s   :62                           </code></pre>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(median_incomeE)<span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">median_incomeE</th>
+<th style="text-align: left;">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Min. : 11558</td>
+<td style="text-align: left;">MULTIPOLYGON :3445</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">1st Qu.: 55924</td>
+<td style="text-align: left;">epsg:3857 : 0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Median : 70188</td>
+<td style="text-align: left;">+proj=merc…: 0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Mean : 77527</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">3rd Qu.: 93286</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Max. :250001</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">NA’s :62</td>
+<td style="text-align: left;">NA</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p><strong>Questions to answer:</strong>. .</p>
@@ -4483,9 +4523,275 @@ $ geometry    &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((-8575060 48..., MULTIPOLY
 <p>Identify census tracts with vulnerable populations based on TWO criteria: 1. Low median household income (choose an appropriate threshold) 2. Significant elderly population (choose an appropriate threshold)</p>
 <p><strong>Your Task:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for vulnerable tracts based on your criteria</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for vulnerable tracts based on your criteria</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>identify_vulnerability <span class="ot">&lt;-</span> join_tract_boundaries <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">plus_pct =</span> (pop_65plusE <span class="sc">/</span> total_populationE) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">category =</span> <span class="fu">case_when</span>(</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>      median_incomeE <span class="sc">&lt;</span> <span class="dv">55924</span> <span class="sc">&amp;</span> plus_pct <span class="sc">&gt;</span> <span class="dv">20</span> <span class="sc">~</span> <span class="st">&quot;Vulnerable&quot;</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;Not Vulnerable&quot;</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(identify_vulnerability, category)<span class="sc">%&gt;%</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">percentage_vulner =</span> (n <span class="sc">/</span> <span class="fu">sum</span>(n))<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">%&gt;%</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 7%">
+<col style="width: 44%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">category</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: left;">geometry</th>
+<th style="text-align: right;">percentage_vulner</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Not Vulnerable</td>
+<td style="text-align: right;">3172</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8914014 48…</td>
+<td style="text-align: right;">92.075472</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Vulnerable</td>
+<td style="text-align: right;">273</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8895128 48…</td>
+<td style="text-align: right;">7.924528</td>
+</tr>
+</tbody>
+</table>
 </div>
-<p><strong>Questions to answer:</strong> - What income threshold did you choose and why? - What elderly population threshold did you choose and why? - How many tracts meet your vulnerability criteria? - What percentage of PA census tracts are considered vulnerable by your definition?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(identify_vulnerability)<span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 6%">
+<col style="width: 3%">
+<col style="width: 2%">
+<col style="width: 6%">
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 14%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 9%">
+<col style="width: 2%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">STATEFP</th>
+<th style="text-align: left;">COUNTYFP</th>
+<th style="text-align: left;">TRACTCE</th>
+<th style="text-align: left;">GEOIDFQ</th>
+<th style="text-align: left;">GEOID</th>
+<th style="text-align: left;">NAME.x</th>
+<th style="text-align: left;">NAMELSAD</th>
+<th style="text-align: left;">STUSPS</th>
+<th style="text-align: left;">NAMELSADCO</th>
+<th style="text-align: left;">STATE_NAME</th>
+<th style="text-align: left;">LSAD</th>
+<th style="text-align: right;">ALAND</th>
+<th style="text-align: right;">AWATER</th>
+<th style="text-align: left;">NAME.y</th>
+<th style="text-align: right;">total_populationE</th>
+<th style="text-align: right;">total_populationM</th>
+<th style="text-align: right;">median_incomeE</th>
+<th style="text-align: right;">median_incomeM</th>
+<th style="text-align: right;">pop_65plusE</th>
+<th style="text-align: right;">pop_65plusM</th>
+<th style="text-align: left;">geometry</th>
+<th style="text-align: right;">plus_pct</th>
+<th style="text-align: left;">category</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">001</td>
+<td style="text-align: left;">031101</td>
+<td style="text-align: left;">1400000US42001031101</td>
+<td style="text-align: left;">42001031101</td>
+<td style="text-align: left;">311.01</td>
+<td style="text-align: left;">Census Tract 311.01</td>
+<td style="text-align: left;">PA</td>
+<td style="text-align: left;">Adams County</td>
+<td style="text-align: left;">Pennsylvania</td>
+<td style="text-align: left;">CT</td>
+<td style="text-align: right;">3043185</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Census Tract 311.01; Adams County; Pennsylvania</td>
+<td style="text-align: right;">5070</td>
+<td style="text-align: right;">358</td>
+<td style="text-align: right;">61847</td>
+<td style="text-align: right;">8600</td>
+<td style="text-align: right;">946</td>
+<td style="text-align: right;">250.30182</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8575060 48…</td>
+<td style="text-align: right;">18.65878</td>
+<td style="text-align: left;">Not Vulnerable</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">013</td>
+<td style="text-align: left;">100400</td>
+<td style="text-align: left;">1400000US42013100400</td>
+<td style="text-align: left;">42013100400</td>
+<td style="text-align: left;">1004</td>
+<td style="text-align: left;">Census Tract 1004</td>
+<td style="text-align: left;">PA</td>
+<td style="text-align: left;">Blair County</td>
+<td style="text-align: left;">Pennsylvania</td>
+<td style="text-align: left;">CT</td>
+<td style="text-align: right;">993724</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Census Tract 1004; Blair County; Pennsylvania</td>
+<td style="text-align: right;">1589</td>
+<td style="text-align: right;">253</td>
+<td style="text-align: right;">67120</td>
+<td style="text-align: right;">12405</td>
+<td style="text-align: right;">238</td>
+<td style="text-align: right;">90.16651</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8730207 49…</td>
+<td style="text-align: right;">14.97797</td>
+<td style="text-align: left;">Not Vulnerable</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">013</td>
+<td style="text-align: left;">100500</td>
+<td style="text-align: left;">1400000US42013100500</td>
+<td style="text-align: left;">42013100500</td>
+<td style="text-align: left;">1005</td>
+<td style="text-align: left;">Census Tract 1005</td>
+<td style="text-align: left;">PA</td>
+<td style="text-align: left;">Blair County</td>
+<td style="text-align: left;">Pennsylvania</td>
+<td style="text-align: left;">CT</td>
+<td style="text-align: right;">1130204</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Census Tract 1005; Blair County; Pennsylvania</td>
+<td style="text-align: right;">3380</td>
+<td style="text-align: right;">580</td>
+<td style="text-align: right;">50450</td>
+<td style="text-align: right;">5089</td>
+<td style="text-align: right;">463</td>
+<td style="text-align: right;">105.41347</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8729297 49…</td>
+<td style="text-align: right;">13.69822</td>
+<td style="text-align: left;">Not Vulnerable</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">013</td>
+<td style="text-align: left;">100800</td>
+<td style="text-align: left;">1400000US42013100800</td>
+<td style="text-align: left;">42013100800</td>
+<td style="text-align: left;">1008</td>
+<td style="text-align: left;">Census Tract 1008</td>
+<td style="text-align: left;">PA</td>
+<td style="text-align: left;">Blair County</td>
+<td style="text-align: left;">Pennsylvania</td>
+<td style="text-align: left;">CT</td>
+<td style="text-align: right;">996553</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Census Tract 1008; Blair County; Pennsylvania</td>
+<td style="text-align: right;">1860</td>
+<td style="text-align: right;">256</td>
+<td style="text-align: right;">64583</td>
+<td style="text-align: right;">19957</td>
+<td style="text-align: right;">282</td>
+<td style="text-align: right;">77.56932</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8728636 49…</td>
+<td style="text-align: right;">15.16129</td>
+<td style="text-align: left;">Not Vulnerable</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">013</td>
+<td style="text-align: left;">101900</td>
+<td style="text-align: left;">1400000US42013101900</td>
+<td style="text-align: left;">42013101900</td>
+<td style="text-align: left;">1019</td>
+<td style="text-align: left;">Census Tract 1019</td>
+<td style="text-align: left;">PA</td>
+<td style="text-align: left;">Blair County</td>
+<td style="text-align: left;">Pennsylvania</td>
+<td style="text-align: left;">CT</td>
+<td style="text-align: right;">573726</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Census Tract 1019; Blair County; Pennsylvania</td>
+<td style="text-align: right;">1436</td>
+<td style="text-align: right;">196</td>
+<td style="text-align: right;">16429</td>
+<td style="text-align: right;">2414</td>
+<td style="text-align: right;">636</td>
+<td style="text-align: right;">157.65151</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8728378 49…</td>
+<td style="text-align: right;">44.28969</td>
+<td style="text-align: left;">Vulnerable</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">011</td>
+<td style="text-align: left;">011200</td>
+<td style="text-align: left;">1400000US42011011200</td>
+<td style="text-align: left;">42011011200</td>
+<td style="text-align: left;">112</td>
+<td style="text-align: left;">Census Tract 112</td>
+<td style="text-align: left;">PA</td>
+<td style="text-align: left;">Berks County</td>
+<td style="text-align: left;">Pennsylvania</td>
+<td style="text-align: left;">CT</td>
+<td style="text-align: right;">1539365</td>
+<td style="text-align: right;">9308</td>
+<td style="text-align: left;">Census Tract 112; Berks County; Pennsylvania</td>
+<td style="text-align: right;">4533</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">56818</td>
+<td style="text-align: right;">7404</td>
+<td style="text-align: right;">600</td>
+<td style="text-align: right;">138.31847</td>
+<td style="text-align: left;">MULTIPOLYGON (((-8455198 49…</td>
+<td style="text-align: right;">13.23627</td>
+<td style="text-align: left;">Not Vulnerable</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Questions to answer:</strong>.</p>
+<ul>
+<li><p><strong>What income threshold did you choose and why?</strong>. less than 55,943 (Lower Quartile)</p></li>
+<li><p><strong>What elderly population threshold did you choose and why?</strong> I chose elderly population over 65 year old, and in areas where the population is more than 20%.</p></li>
+<li><p><strong>How many tracts meet your vulnerability criteria?</strong></p>
+<ol start="273" type="1">
+<li></li>
+</ol></li>
+<li><p><strong>What percentage of PA census tracts are considered vulnerable by your definition?</strong>. 7.9%.</p></li>
+</ul>
 <hr>
 </section>
 <section id="step-4-calculate-distance-to-hospitals" class="level4">
