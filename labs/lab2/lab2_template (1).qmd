@@ -309,10 +309,12 @@ glimpse(new1_summary)%>%
 
 **Questions to answer:**
 - **How many tracts are underserved?**
+
   85 are underserved
 
 
 - **What percentage of vulnerable tracts are underserved?**. 
+
   31.1% are underserved
   
 - **Does this surprise you? Why or why not?**. 
@@ -329,26 +331,64 @@ Use spatial joins and aggregation to calculate county-level statistics about vul
 ```{r}
 # Spatial join tracts to counties
 
+glimpse(underserved)
+glimpse(pa_counties)
+
+pcounty <- st_transform(pa_counties, 3365)
+pcensustract <- st_transform(census_tracts, 3365)
+
+new_spatial_join <- underserved %>%
+  st_join(pcounty) %>%
+  group_by(COUNTY_NAM) %>%
+  summarise(
+    total_vulnerable = n(),
+    total_underserved = sum(serv_under_or == "underserved"),
+    pct_underserved = (total_underserved / total_vulnerable) * 100,
+    avg_dist = mean(dist_near_hos),
+    total_vul_pop = sum(total_populationE)
+  ) 
+ glimpse(new_spatial_join)
+ 
 
 # Aggregate statistics by county
+pct_uns <- new_spatial_join %>% 
+  arrange(desc(pct_underserved))%>%
+  head(5) %>%
+  kable()
+ 
+new_spatial_join%>%
+  arrange(desc(avg_dist))%>%
+  head(5)%>%
+  kable()
 
+glimpse(new_spatial_join)
 
-
+ggplot() +
+  geom_sf(data = pa_counties, fill = "lightblue", color = "lightblue") +
+  geom_sf(data = underserved %>% filter(serv_under_or == "underserved"), 
+          aes(fill = dist_near_hos), color = "lightblue") +
+  scale_fill_gradient(low = "white", high = "black", name = "Distance (miles) from nearest hospital") +
+  theme_void()
 
 ```
 
 **Required county-level statistics:**
-- Number of vulnerable tracts
+- Number of vulnerable tracts. 
 - Number of underserved tracts  
 - Percentage of vulnerable tracts that are underserved
 - Average distance to nearest hospital for vulnerable tracts
 - Total vulnerable population
 
 **Questions to answer:**
-- Which 5 counties have the highest percentage of underserved vulnerable tracts?
-- Which counties have the most vulnerable people living far from hospitals?
-- Are there any patterns in where underserved counties are located?
+- **Which 5 counties have the highest percentage of underserved vulnerable tracts?**
 
+Berks, Cameron, Centre, Clarion, Clinton
+
+- **Which counties have the most vulnerable people living far from hospitals?**. 
+Perry, Columbia, Centre, Cameron, Forest
+
+- **Are there any patterns in where underserved counties are located?**. 
+  The vulnerable areas are further away from Philadelphia towards central PA, with more concentration in central northwest PA.
 ---
 
 #### Step 7: Create Summary Table 
