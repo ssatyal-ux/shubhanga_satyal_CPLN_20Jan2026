@@ -364,10 +364,10 @@ new_spatial_join%>%
 glimpse(new_spatial_join)
 
 ggplot() +
-  geom_sf(data = pa_counties, fill = "lightblue", color = "lightblue") +
+  geom_sf(data = pa_counties, fill = "black", color = "black") +
   geom_sf(data = underserved %>% filter(serv_under_or == "underserved"), 
-          aes(fill = dist_near_hos), color = "lightblue") +
-  scale_fill_gradient(low = "white", high = "black", name = "Distance (miles) from nearest hospital") +
+          aes(fill = dist_near_hos), color = "black") +
+  scale_fill_gradient(low = "yellow", high = "red", name = "Distance (miles) from nearest hospital") +
   theme_void()
 
 ```
