@@ -1,0 +1,17 @@
+{
+  "hash": "edef8a2c53badf00ae2c8d5d83812b4b",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Lab 0: Getting Started with dplyr\"\nsubtitle: \"Your First Data Analysis\"\nauthor: \"Shubhanga Satyal\"\ndate: today\nformat: \n  html:\n    code-fold: false\n    toc: true\n    toc-location: left\n    theme: cosmo\nexecute:\n  warning: false\n  message: false\n---\n\n# Overview\n\nWelcome to your first lab! In this (not graded) assignment, you'll practice the fundamental dplyr operations I overviewed in class using car sales data. This lab will help you get comfortable with:\n\n- Basic data exploration\n- Column selection and manipulation  \n- Creating new variables\n- Filtering data\n- Grouping and summarizing\n\n**Instructions:** Copy this template into your portfolio repository under a `lab_0/` folder, then complete each section with your code and answers. You will write the code under the comment section in each chunk.\nBe sure to also copy the data folder into your `lab_0` folder.\n\n# Setup\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Load the tidyverse library\nlibrary(tidyverse)\n```\n:::\n",
+    "supporting": [
+      "lab0_template_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

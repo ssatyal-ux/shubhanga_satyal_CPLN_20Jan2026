@@ -1,0 +1,788 @@
+---
+title: "Lab 2: Spatial Analysis and Visualization"
+subtitle: "Healthcare Access and Equity in Pennsylvania"
+author: "Shubhanga Satyal"
+date: today
+format: 
+  html:
+    code-fold: false
+    toc: true
+    toc-location: left
+    theme: cosmo
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+---
+
+## Assignment Overview
+
+**Learning Objectives:**
+- Apply spatial operations to answer policy-relevant research questions
+- Integrate census demographic data with spatial analysis
+- Create publication-quality visualizations and maps
+- Work with spatial data from multiple sources
+- Communicate findings effectively for policy audiences
+
+---
+
+## Part 1: Healthcare Access for Vulnerable Populations
+
+
+### Research Question
+
+**Which Pennsylvania counties have the highest proportion of vulnerable populations (elderly + low-income) living far from hospitals?**
+
+
+### Analysis Steps
+
+#### Step 1: Data Collection 
+
+```{r}
+#| message: false
+#| warning: false
+#| results: 'hide'
+
+
+# Load required packages - loaded all packages I could 
+library(tidyverse)
+library(tidycensus)
+library(scales)
+library(RColorBrewer)
+library(sf)
+library(tidyverse)
+library(tigris)
+library(tidycensus)
+library(scales)
+library(patchwork)
+library(knitr)
+
+
+# Load spatial data
+pa_counties <- st_read("data/Pennsylvania_County_Boundaries.shp")
+hospitals <- st_read("data/hospitals.geojson")
+census_tracts <- tracts(state = "PA", cb = TRUE)
+
+
+#Transformed to Same County
+hospitals <- st_transform(hospitals, st_crs(pa_counties))
+census_tracts <- st_transform(census_tracts, st_crs(pa_counties))
+
+
+# Checking that all data loaded correctly
+head(pa_counties)
+head(hospitals)
+head(census_tracts)
+head(census_tracts)
+
+
+#summarizing to see what Projection is used
+summarise(pa_counties)
+```
+**Questions to answer:**. 
+
+- **How many hospitals are in your dataset?**. 
+
+  223  
+- **How many census tracts?**. 
+  
+  3,345  
+- **What coordinate reference system is each dataset in?**.   
+  
+  All use WGS 84 after I transformed the coordinate system. 
+
+---
+
+#### Step 2: Get Demographic Data 
+
+```{r}
+#| message: false
+#| warning: false
+#| results: 'hide'
+
+
+# Get demographic data from ACS
+demographic_data <- get_acs(
+  geography = "tract",
+  state = "PA",
+  variables = c(
+    total_population = "B01003_001",
+    median_income = "B19013_001",
+#used chatgpt to get tables for all male and female categries above 65
+    a = "B01001_020",   
+    b = "B01001_021",
+    c = "B01001_022",
+    d = "B01001_023",
+    e = "B01001_024",
+    f = "B01001_025",
+    g = "B01001_044",
+    h = "B01001_045",
+    i = "B01001_046",
+    j = "B01001_047",
+    k = "B01001_048",
+    l = "B01001_049"
+  ),
+  year = 2022,
+  survey = "acs5",
+  output = "wide"
+) %>%
+#adding all categories for 65+ populations to create and aggregate whole.
+  mutate(           
+    pop_65plusE =
+      aE + bE + cE + dE + eE + fE + gE + hE + iE + jE + kE + lE
+      ) %>%
+#removing excess strings (words) to make data more presentable
+  mutate(
+    NAME = NAME %>%
+      str_remove("Census Tract ") %>%
+      str_remove("; Pennsylvania")
+  )%>%
+#selecting what to present
+  select(
+    GEOID,
+    `County Name` = NAME,
+    `Total Population` = total_populationE,
+    `Total Population 65 Y+` = pop_65plusE,
+    `Median HH Income` = median_incomeE
+  )
+
+
+#presenting only the first six rows to check for data
+head(demographic_data)
+ 
+   
+#using left_join to join demographic data to census tracts using common GEOID
+join_tract_boundaries <- census_tracts %>%
+  left_join(demographic_data, by = "GEOID")
+
+
+#viewing the first six rows of the new joined data
+head(join_tract_boundaries) 
+
+  
+#summarising only the median household income data 
+join_tract_boundaries%>%
+  select(`Median HH Income`)%>%
+  summary()%>%
+  kable(digit = 1)
+```
+
+**Questions to answer:**. 
+
+- **What year of ACS data are you using?**.  
+  
+  2022.
+- **How many tracts have missing income data?**. 
+
+  2023.
+- **What is the median income across all PA census tracts?**. 
+
+  70,188.
+
+---
+
+#### Step 3: Define Vulnerable Populations 
+
+```{r}
+#| message: false
+#| warning: false
+#| results: 'hide'
+
+
+# Filtering for vulnerable tracts based criteria (less than Q3 median incme and more than 20% those above 65 years)
+identify_vulnerability <- join_tract_boundaries %>%
+  mutate(
+    plus_pct = (`Total Population 65 Y+` / `Total Population`) * 100,
+    category = case_when(
+      `Median HH Income` < 55924 & plus_pct > 20 ~ "Vulnerable",
+      TRUE ~ "Not Vulnerable"
+    )
+  )
+
+
+#counts number of vulnerable cases per category, and percentage of vulnerable vs non vulnerable
+count(identify_vulnerability, category)%>%
+  mutate(
+    percentage_vulner = (n / sum(n))*100 
+#n is the number per category #sum(n) is total count
+  )%>%
+  select(
+    category,
+    n, 
+    percentage_vulner)%>%
+  kable(digit = 1)
+
+
+#viewing the data for vulnerability that has been identified
+head(identify_vulnerability)%>%
+  kable(digit = 1)
+
+
+```
+
+**Questions to answer:**. 
+
+
+- **What income threshold did you choose and why?**. 
+ 
+  less than 55,943 (Lower Quartile)
+- **What elderly population threshold did you choose and why?**. 
+
+  I chose elderly population over 65 year old, and in areas where the   
+  population is more than 20%. 
+
+- **How many tracts meet your vulnerability criteria?**. 
+  
+  273. 
+  
+- **What percentage of PA census tracts are considered vulnerable by your definition?**. 
+
+  7.9%. 
+
+---
+
+#### Step 4: Calculate Distance to Hospitals 
+
+```{r}
+#| message: false
+#| warning: false
+#| results: 'hide'
+
+
+# Transform to appropriate projected CRS, which is 3365, NAD38 PA south. Best for distance calculations
+hos <- st_transform(hospitals, 3365)
+vul <- st_transform(identify_vulnerability, 3365)
+
+
+# Calculate distance from each tract centroid to nearest hospital
+vul_new <- vul %>%
+  filter(category == "Vulnerable") %>% 
+  mutate(
+    dist_near_hos = as.numeric(
+      st_distance(
+      st_centroid(.), st_union(hos) #st_union makes scattered hospital data into one unit that can be used for calculation 
+    )
+    ) / 1609.34 #converting metres to miles 
+    )
+
+
+#viewing distance calculated from centroid of vulnerable tract to nearest hospital
+head(vul_new)%>%
+  kable(digit=1)
+
+
+#calculating summary of distance from hospital data
+new_summary <- vul_new %>%
+  select(dist_near_hos)%>%
+  summary()
+
+
+#viewing the calculation from above
+new_summary%>%
+  kable()
+
+
+#identifying (counting) vulnerable tracts more than 15 miles from hospital
+dist_15 <- vul_new%>%
+  filter(dist_near_hos > 15 )%>%
+  count()%>%
+  select(n) %>%
+  st_drop_geometry(.)
+
+
+#viewing above calculation
+dist_15%>%
+  kable()
+
+```
+
+I chose my projection as 3365 because it is the apt projection for Pennsylvania South for distance calculations. 
+
+**Questions to answer:**. 
+
+  What is the average distance to the nearest hospital for vulnerable tracts? 
+  14.88 Miles
+
+
+**What is the maximum distance?**. 
+
+  84.06 Miles
+
+
+
+**How many vulnerable tracts are more than 15 miles from the nearest hospital?**. 
+
+  85
+  
+---
+
+#### Step 5: Identify Underserved Areas 
+
+"underserved" are vulnerable tracts that are more than 15 miles from the nearest hospital.
+
+```{r}
+
+# Create underserved variable, categorizing into underserved and not
+underserved <- vul_new %>%
+  mutate(
+    serv_under_or = case_when(
+      dist_near_hos > 15 ~ "underserved",
+      TRUE ~ "vulnerable but served"
+    )
+  )
+
+
+#counting number of underserved and vulnerable but served counties, then finding the percentage within each category
+new1_summary <- underserved %>%
+  count(serv_under_or)%>%
+  mutate (
+    underserv_pct = (n/sum(n)*100)
+  )%>%
+  select(n, serv_under_or, underserv_pct)
+
+
+#viewing what was calculated above
+glimpse(new1_summary)
+
+```
+
+**Questions to answer:**
+- **How many tracts are underserved?**. 
+
+  85 are underserved
+- **What percentage of vulnerable tracts are underserved?**. 
+
+  31.1% are underserved
+- **Does this surprise you? Why or why not?**. 
+
+   I do not have any context for "surprise" here, however I am concerned that     31% areas are underserved. Therefore more intervention and planning is        required. 
+
+---
+
+#### Step 6: Aggregate to County Level
+
+```{r}
+
+# transforming to NAD83 again string in different variable
+pcounty <- st_transform(pa_counties, 3365)
+pcensustract <- st_transform(census_tracts, 3365)
+
+
+#creating spatial join of underserved(categorized) and pa counties
+new_spatial_join <- underserved %>%
+  st_join(pcounty) %>%
+  group_by(COUNTY_NAM) %>% #creating groups by county
+  summarise(              
+# summarise will now place these calculations in the groups of group_by counties
+    total_vulnerable = n(),
+    total_underserved = sum(serv_under_or == "underserved"),
+    pct_underserved = (total_underserved / total_vulnerable) * 100,
+    avg_dist = mean(dist_near_hos),
+    total_vul_pop = sum(`Total Population`)
+  )
+
+
+#ensuring compliance with projection system 
+ st_transform(new_spatial_join, 3365)
+ 
+
+# Details by county arranged by descending order of percentage of counties underserved
+pct_uns <- new_spatial_join %>% 
+  arrange(desc(pct_underserved))
+ 
+
+#viewing above calculations 
+pct_uns %>%  
+head(5) 
+
+
+
+#arranging by distance
+new_spatial_join%>%
+  arrange(desc(avg_dist))
+
+
+#viewing above calculations
+new_spatial_join%>%
+head(5)
+
+
+#attached the summary statistics to the county boundary shapefile so it can be mapped
+county_map_data <- pcounty %>%
+  left_join(
+    st_drop_geometry(new_spatial_join), by = "COUNTY_NAM")
+
+
+#mapping underserved areas by county to observe potential patterns
+ggplot() +
+  geom_sf(data = county_map_data, aes(fill = pct_underserved), color = "black") +
+  scale_fill_viridis_c(name = "% Underserved", na.value = "navy", option = "inferno") +
+  labs(title = "Underserved Vulnerable Populations by County") +
+  theme_void()
+
+```
+
+**Questions to answer:**. 
+
+- **Which 5 counties have the highest percentage of underserved vulnerable tracts?**. 
+
+  Berks, Cameron, Centre, Clarion, Clinton
+
+- **Which counties have the most vulnerable people living far from hospitals?**. 
+
+  Perry, Columbia, Centre, Cameron, Forest
+
+- **Are there any patterns in where underserved counties are located?**. 
+  
+  The vulnerable areas are further away from Philadelphia towards central PA,   with more concentration in central northwest PA.
+  
+---
+
+#### Step 7: Create Summary Table 
+
+
+```{r}
+
+
+# Create and format priority counties table
+
+health_care <- new_spatial_join %>%
+  st_drop_geometry() %>%
+  arrange(desc(pct_underserved), desc(avg_dist)) %>%
+  slice_head(n = 10) %>%
+  mutate(
+    total_vul_pop = comma(total_vul_pop)
+    )%>%
+  select(
+    `County Name` = COUNTY_NAM,
+    `Avg Distance from Nearest Hospital (miles)`= avg_dist,
+    `% Underserved Tracts among Vulnerable Tracts` = pct_underserved,
+    `Population in these Tracts` = total_vul_pop,
+    `Total Underserved Tracts` = total_underserved,
+    `Total Vulnerable Tracts` = total_vulnerable
+  )
+
+
+#displaying the table
+health_care%>%
+  kable(
+    digits = 0,
+    caption = "Priority Table for Healthcare Investments"
+        )
+
+```
+
+---
+
+## Part 2: Comprehensive Visualization 
+
+Using the skills from Week 3 (Data Visualization), create publication-quality maps and charts.
+
+### Map 1: County-Level Choropleth 
+
+```{r}
+
+# Create county-level access map
+ggplot() +
+  geom_sf(data = county_map_data, aes(fill = pct_underserved), color = "black") +
+  geom_sf(data = hos, color = "green", size = 0.9, alpha = 0.9) +
+  scale_fill_viridis_c(name = "% Underserved",option = "inferno", na.value = "navy") +
+  labs(
+    title = "Underserved Vulnerable Tracts",
+    subtitle = "% of vulnerable counties that are underserved",
+    caption = "Green points = Hospitals"
+  ) +
+  theme_void()
+
+```
+
+---
+
+### Map 2: Detailed Vulnerability Map 
+
+```{r}
+
+
+
+# Create detailed tract-level map
+ggplot() +
+  geom_sf(data = county_map_data, fill = "white", color = "black") +
+  geom_sf(data = underserved, aes(fill = serv_under_or), color = NA) +
+  geom_sf(data = hos, color = "green", size = 0.9, alpha = 0.9) +
+  scale_fill_viridis_d(name = "Status", option = "plasma") +
+  labs(
+    title = "Underserved Vulnerable Tracts",
+    subtitle = "Tracts vulnerable and more than 15 miles from a hospital are underserved",
+    caption = "Green points = Hospitals"
+  ) +
+  theme_void()
+
+```
+
+---
+
+### Chart: Distribution Analysis
+
+```{r}
+
+
+# Create distribution visualization
+ggplot(vul_new) +
+  aes(x = dist_near_hos) +
+  geom_histogram(bins = 25, fill = "navy", color = "white", alpha = 0.7) +
+   geom_vline(xintercept = 15, color = "red", linetype = "dashed") +
+  labs(
+    title = "Distribution of Distances to Nearest Hospital",
+    x = "Distance to Nearest Hospital (miles)",
+    y = "Number of Vulnerable Tracts",
+    subtitle = "red line represents the 15 mile threshold for underserved",
+    caption = "most vulnerable census tracts have access to a hospital within 25 miles,
+    with high concentration of around 90 tracts with hospital within 5-10 miles"
+  ) +
+  theme_minimal()
+
+```
+
+
+---
+
+## Part 3: Bring Your Own Data Analysis 
+
+
+
+#### Infrastructure & Services
+
+**Polling Place Accessibility**
+- **Data:** Polling Places, SEPTA stops, Census tracts (elderly population, disability rates)
+- **Question:** "Are polling places accessible for elderly and disabled voters?"
+- **Operations:** Buffer polling places and transit stops, identify vulnerable populations, find areas lacking access
+- **Policy relevance:** Voting rights, election infrastructure, ADA compliance
+
+
+1. **Find and load additional data**
+ 
+```{r}
+#| message: false
+#| warning: false
+#| results: 'hide'
+
+# Load your additional dataset
+phil_censustract <- st_read("data/Census_Tracts_2010-shp (3)")
+polling_places <- st_read("data/polling_places")
+transit_stops <- st_read("data/Transit_Stops_(Spring_2025)")
+
+shub <- st_transform(phil_censustract, 3365)
+dhub <- st_transform(polling_places,3365)
+lhub <- st_transform(transit_stops,3365)
+```
+
+**Questions to answer:**
+- **What dataset did you choose and why?**. 
+
+ I chose polling places, transit stops and census tracts(for Philadelphia) to 
+ analyze voting accessibility. 
+
+- **What is the data source and date?**. 
+
+ The data here are shape files from OpenDataPhilly, all transit Stops as of   
+ 2025, census tracts as of 2010, polling places (no date available) 
+  
+- **How many features does it contain?**. 
+
+  Census Tract (384), Polling Places (1,703), Transit Stops (22,478)
+
+- **What CRS is it in? Did you need to transform it?**. 
+  
+  I transformed all to 3365 (NAD83)
+
+---
+
+2. **Pose a research question**.  
+   
+  Do elderly populations have adequate access to polling places via public      transit?
+
+---
+
+3. **Conduct spatial analysis**
+
+```{r}
+
+# Your spatial analysis
+
+
+#demographic data from census data using get_acs
+a_demographic_data <- get_acs(
+  geography = "tract",
+  state = "PA",
+  county = "PHILADELPHIA",
+  variables = c(
+    atotal_population = "B01003_001",
+    a = "B01001_020",                  #extracting up all 65+ categories 
+    b = "B01001_021",
+    c = "B01001_022",
+    d = "B01001_023",
+    e = "B01001_024",
+    f = "B01001_025",
+    g = "B01001_044",
+    h = "B01001_045",
+    i = "B01001_046",
+    j = "B01001_047",
+    k = "B01001_048",
+    l = "B01001_049"
+  ),
+  year = 2022,
+  survey = "acs5",
+  output = "wide"
+) %>%                                  #calculating the total population 65+
+  mutate(
+    apop_65plusE = aE + bE + cE + dE + eE + fE + gE + hE + iE + jE + kE + lE
+  ) %>%
+  mutate(                              #cleaning (removing) strings that were unnecessary
+    NAME = NAME %>%
+      str_remove("Census Tract ") %>%
+      str_remove("; Pennsylvania")
+  ) %>%
+  select(                               #rename relevant columns for analysis
+    GEOID,
+    `County Name` = NAME,
+    `Total Population` = atotal_populationE,
+    `Total Population 65 Y+` = apop_65plusE
+  )
+
+
+# joining demographic data to census tracts in Philadelphia
+a_census_tract_join <- shub %>%
+  left_join(a_demographic_data, by = c("GEOID10" = "GEOID"))
+
+
+# identifying vulnerable tracts 1/3 mile distance from centroid to polling places
+a_vulnerable_tracts <- a_census_tract_join %>%
+  mutate(
+    percent = (`Total Population 65 Y+` / `Total Population`) * 100,
+    a_distance = as.numeric(st_distance(st_centroid(shub), st_union(dhub))),
+    vulnerability = case_when(
+      percent > 40 & a_distance > 600 ~ "Vulnerable!",
+      TRUE ~ "Not Vulnerable"
+    )
+  )
+
+
+
+# filter to vulnerable tracts
+identify_vulnerabilitya <- a_vulnerable_tracts %>%
+  filter(vulnerability == "Vulnerable!")
+
+
+# creating buffer of 0.125 mile around transit stops (easy access for senior citizes)
+stop_buffer <- lhub %>%
+  st_buffer(200)
+
+
+#identifying critical tracts (using disjoint to exclude areas not covered by the transit buffer)
+critical_tracts <- identify_vulnerabilitya %>%
+  st_filter(stop_buffer, .predicate = st_disjoint) 
+
+
+#Identifying most priritizable among the critical tracts, prioritizing based on distance to polling place, followed by percent of 65+
+top_critical_tracts <- critical_tracts %>%
+  st_drop_geometry() %>%
+  arrange(desc(a_distance), desc(percent)) %>%
+  mutate(
+    `Tract` = str_remove(NAMELSAD10, "Census Tract "),
+    `Total Population` = comma(`Total Population`),
+    `Avg Distance to Polling Places (mi)` = a_distance / 1609.34
+  ) %>%
+  select(
+    `Tract`,
+    `Total Population`,
+    `% Vulnerable` = percent,
+    `Avg Distance to Polling Places (mi)`
+  )
+
+
+#viewing and labeling
+top_critical_tracts %>%
+  kable(
+    digits = 1,
+    caption = "Critical Tracts for Investment in Elderly Participation in Elections"
+  )
+
+
+#mapping vulnerable tracts and hospitals for visual understanding
+ggplot() +
+  geom_sf(data = shub, fill = "white", color = "black") +
+  geom_sf(data = a_vulnerable_tracts, aes(fill = percent), color = NA) +
+  geom_sf(data = dhub, color = "green", size = 0.05, alpha = 0.5) +
+  scale_fill_viridis_c(name = "% Age 65+", option = "plasma") +
+  labs(
+    title = "Polling Access vulnerability in Philadelphia",
+    subtitle = "vulnerability chloropleth",
+    caption = "Green points = Polling Places"
+  ) +
+  theme_void()
+
+
+#converting critical tracts into geometric
+critical_top3pls <- critical_tracts %>%
+  filter(NAMELSAD10 %in% c("Census Tract 364", "Census Tract 220", "Census Tract 9802"))
+
+
+
+ggplot() +
+  geom_sf(data = shub, fill = "gold", color = "gold") +
+  geom_sf(data = critical_top3pls, fill = "lightblue", alpha = 0.7) +
+  geom_sf(data = dhub, color = "red", size = 0.05, alpha = 0.5) +
+  labs(
+    title = "Top 3 Critical Tracts for Elderly Polling Access",
+    subtitle = "blue tracts are disconnected from transit and far from polling places",
+    caption = "red points = Polling Places"
+  ) +
+  theme_void()
+
+
+
+
+
+
+
+```
+
+
+
+Philadelphia is mostly covered via transit connections, whether it be regional rail, SEPTA subway, or buses. However, gaps remain in three critical census tract areas: tracts 364, 220, and 9802. Not only do these tracts have a vulnerable population above the 20% threshold, with those aged 65 and above exceeding 45%, but the average distance to a polling place is more than a third of a mile. This is a significant concern for elderly residents, as these tracts also fall outside the 0.125-mile transit buffer entirely. While this distance may not seem substantial, most elderly individuals suffer from arthritis and knee-related issues, making walkability a critical factor. It is therefore essential that their inclusivity be prioritized. 
+
+
+## Comments about your incorporation of feedback!
+I cleaned up the presentation and only included essential information for display on quarto. Unnecessary details were attempted to be excluded. I formatted only tabels that were asked to display
+
+## Acknowledgements 
+
+I consulted lab1 codes, week4 lecture codes, week4 inclass practice codes,week 3 lab exercies, week 3 qmd.  
+
+I also consulted:     
+
+  sf cheat sheet:
+  
+  
+  https://rstudio.github.io/cheatsheets/sf.pdf. 
+  
+  gg plot cheat sheet:
+  
+  https://rstudio.github.io/cheatsheets/data-visualization.pdf. 
+  
+  
+ dplyr cheat sheet: 
+https://nyu-cdsc.github.io/learningr/assets/data-transformation.pdf. 
+
+
+Besides I consulted Claude and Chat GPT- coding by myself, then consulting it for corrections. 
+
+
+
+
+
+---
+
+
+---
+

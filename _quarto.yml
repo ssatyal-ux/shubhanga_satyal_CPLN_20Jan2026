@@ -1,0 +1,33 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Shubhanga Satyal-MUSA 5080 Portfolio"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - text: labs
+        menu: 
+          - href: labs/lab0/lab0_template.qmd
+            text: "Lab 0: dplyr Basic"
+          - href: labs/lab1/lab1_template.qmd
+            text: "Lab 1: Census Data Quality for Policy Decisions"
+          - href: labs/lab2/lab2_template (1).qmd
+            text: "Lab 2: Spatial Analysis and Visualization"                                     
+          - href: labs/PPA_AVM_Property_Taxes/Brar_Ceruso_Gupta_Satyal_March_17_Appendix.qmd        
+            text: "Lab 3: Philadelphia Housing Prices"                                          
+          - href: labs/PPA_AVM_Property_Taxes/Presentation.qmd                                  
+            text: "Presentation Lab 3: Philadelphia Housing Prices"
+
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-fold: true
+
+
+execute:
+  freeze: auto
