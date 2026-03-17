@@ -2119,4 +2119,11 @@ Ultimately, this model contains several limitations and it is important to note 
 
 ```{r export final model dataframe}
 write.csv(dat, "data_clean/dat.csv" )
+
+
+   tempdir()
 ```
+
+# AI Acknowledgement
+
+Claude AI was used to assist with code debugging, idea generation, generating the pie chart, and resolving display-related issues. It also helped provide logical direction and offered clear explanations of code from class assignments and examples.

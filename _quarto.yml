@@ -18,8 +18,6 @@ website:
             text: "Lab 2: Spatial Analysis and Visualization"                                     
           - href: labs/lab3/Brar_Ceruso_Gupta_Satyal_March_17_Appendix.qmd        
             text: "Lab 3: Philadelphia Housing Prices"                                          
-          - href: labs/lab3/Presentation.qmd                                  
-            text: "Presentation Lab 3: Philadelphia Housing Prices"
 
 
 format:

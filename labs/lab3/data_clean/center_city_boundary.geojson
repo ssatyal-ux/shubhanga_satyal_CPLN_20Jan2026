@@ -28,6 +28,8 @@
 { "type": "Feature", "properties": { "OBJECTID": 1, "NAME": "Center City District", "SHAPE_STAREA__": 24312192.073100001, "SHAPE_STLENGTH__": 35937.365683000004 }, "geometry": { "type": "Point", "coordinates": [ 2693362.965693019796163, 236199.922708323167171 ] } },
 { "type": "Feature", "properties": { "OBJECTID": 1, "NAME": "Center City District", "SHAPE_STAREA__": 24312192.073100001, "SHAPE_STLENGTH__": 35937.365683000004 }, "geometry": { "type": "Point", "coordinates": [ 2693362.965693019796163, 236199.922708323167171 ] } },
 { "type": "Feature", "properties": { "OBJECTID": 1, "NAME": "Center City District", "SHAPE_STAREA__": 24312192.073100001, "SHAPE_STLENGTH__": 35937.365683000004 }, "geometry": { "type": "Point", "coordinates": [ 2693362.965693019796163, 236199.922708323167171 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 1, "NAME": "Center City District", "SHAPE_STAREA__": 24312192.073100001, "SHAPE_STLENGTH__": 35937.365683000004 }, "geometry": { "type": "Point", "coordinates": [ 2693362.965693019796163, 236199.922708323167171 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 1, "NAME": "Center City District", "SHAPE_STAREA__": 24312192.073100001, "SHAPE_STLENGTH__": 35937.365683000004 }, "geometry": { "type": "Point", "coordinates": [ 2693362.965693019796163, 236199.922708323167171 ] } },
 { "type": "Feature", "properties": { "OBJECTID": 1, "NAME": "Center City District", "SHAPE_STAREA__": 24312192.073100001, "SHAPE_STLENGTH__": 35937.365683000004 }, "geometry": { "type": "Point", "coordinates": [ 2693362.965693019796163, 236199.922708323167171 ] } }
 ]
 }
