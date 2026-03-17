@@ -6,9 +6,6 @@ _site/
 .quarto/
 .quarto-cache/
 
-data_unclean/
-**/cache/
-
 
 # =========================
 # R
