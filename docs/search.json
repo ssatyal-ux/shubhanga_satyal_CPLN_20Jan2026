@@ -726,5 +726,26 @@
     "title": "Philadelphia Housing Price Prediction",
     "section": "Recommendations",
     "text": "Recommendations\n\nOur model is a holistic and comprehensive predicive model for home sale prices, and we recommend it be used to support property tax determination\nWe recommend supplementary screening and surveying for neighborhoods that are systematically under and over predicted by the model."
+  },
+  {
+    "objectID": "labs/lab3/index.html",
+    "href": "labs/lab3/index.html",
+    "title": "Automated Valuation Mode for Property Tax Assessments",
+    "section": "",
+    "text": "Our team is working to create a an Automated Valuation Model to predict sales prices for the Philadelphia Office of Property Assessment."
+  },
+  {
+    "objectID": "labs/lab3/index.html#about-the-project",
+    "href": "labs/lab3/index.html#about-the-project",
+    "title": "Automated Valuation Mode for Property Tax Assessments",
+    "section": "",
+    "text": "Our team is working to create a an Automated Valuation Model to predict sales prices for the Philadelphia Office of Property Assessment."
+  },
+  {
+    "objectID": "labs/lab3/index.html#contact",
+    "href": "labs/lab3/index.html#contact",
+    "title": "Automated Valuation Mode for Property Tax Assessments",
+    "section": "Contact",
+    "text": "Contact\n\nEmail: [your.email@upenn.edu]\nGitHub: [@your-username]"
   }
 ]
