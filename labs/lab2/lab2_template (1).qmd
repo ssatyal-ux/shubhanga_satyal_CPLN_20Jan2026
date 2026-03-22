@@ -57,6 +57,8 @@ library(scales)
 library(patchwork)
 library(knitr)
 
+options(tigris_use_cache = TRUE)
+options(tigris_progress = FALSE)
 
 # Load spatial data
 pa_counties <- st_read("data/Pennsylvania_County_Boundaries.shp")
