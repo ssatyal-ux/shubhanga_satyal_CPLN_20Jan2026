@@ -22,6 +22,8 @@ execute:
 +--------------------------------------------------+
 | Setting Up                                       |
 +--------------------------------------------------+
+| ANALYSIS                                         |
++--------------------------------------------------+
 | 1.  Data Loading and Exploration                 |
 +--------------------------------------------------+
 | 2.  Visualizing Abandoned Buildings              |
@@ -117,6 +119,8 @@ cat("✓ Working directory:", getwd(), "\n")
 
 
 ```
+
+## ANALYSIS
 
 ### 1.  Data Loading & Exploration
 
