@@ -762,4 +762,9 @@ comparison %>%
 
 To conclude, we can see that the KDE performs better than the model itself, with lower MAE and RMSE values. While the Negative Binomial regression is technically more robust, the possibility of missing spatial variables beyond those included in the model may be one reason for this weaker performance.
 
+#### ACKNOWLEDGMENT
+
+\
+I have leveraged the in-class exercise provided by professor Lassiter for the code. I also leveraged AI for debugging, explaining new codes functionality whenever I was stuck while producing this lab content.
+
 ------------------------------------------------------------------------
