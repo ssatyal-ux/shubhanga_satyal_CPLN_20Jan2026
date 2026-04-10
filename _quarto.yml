@@ -18,9 +18,8 @@ website:
             text: "Lab 2: Spatial Analysis and Visualization"
           - href: labs/lab3/Brar_Ceruso_Gupta_Satyal_March_17_Appendix.qmd                   
             text: "Lab 3: Philadelphia Housing Prices" 
-	  - href: labs/lab4/lab_4.qmd
-	    text: "Lab 4: Spatial Predictive Analysis"
-                                                                            
+          - href: labs/lab4/FINALOMG.qmd                   
+            text: "Lab 4: Spatial Predictive Analysis"         
 
 format:
   html:
