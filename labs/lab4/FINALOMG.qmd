@@ -53,7 +53,7 @@ execute:
 | [Note: Written Analysis Throughout]{.underline}  |
 +--------------------------------------------------+
 
-##     Assignment Overview
+## Assignment Overview
 
 This assignment showcases the use of regression analysis for spatial predictive analysis in the city of Chicago. Building on 311 service requests reporting vacant and abandoned buildings, we use this spatial feature to predict the likelihood of burglaries and then compare different models to determine which performs better in spatial prediction.\
 \
@@ -122,7 +122,7 @@ cat("✓ Working directory:", getwd(), "\n")
 
 ## ANALYSIS
 
-### 1.  Data Loading & Exploration
+### 1. Data Loading & Exploration
 
 This chunk loads all the raw data required for the analysis, including both the spatial boundary files and the 311 calls dataset. The spatial boundaries are pulled from Chicago’s open data portal and include police districts, police beats, and the Chicago city boundary. Police districts are later used for cross-validation, where one district is held out at a time. Police beats represent a finer geographic unit and are also loaded, although they are not used as heavily in the later stages of the analysis. The Chicago city boundary is especially important, as it is used to clip all spatial data so that any points falling outside the city are removed.
 
@@ -160,7 +160,7 @@ abandoned_sf <- abandoned %>%
 
 ```
 
-### 2.  Visualizing Abandoned Buildings
+### 2. Visualizing Abandoned Buildings
 
 This section explores and showcases the spatial distribution of the data, first by presenting the abandoned building sites as point data. The second visualization uses a kernel density function, which provides a heat map showing where the highest concentration of service calls is received. Together, these visualizations help contextualize the spatial pattern of abandoned building concentration across Chicago.
 
